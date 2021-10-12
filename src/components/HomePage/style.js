@@ -15,7 +15,37 @@ export const useStyle = makeStyles((theme)=>({
     },
     title:{
        color:"white",
-       fontFamily:"Montserrat" 
+       fontFamily:"Montserrat" ,
+       fontWeight:"bold",
+       position:"absolute",
+       top:"30px",
+       left:"30px"
+    },
+    ConnectionTitle:{
+        color:"white",
+        fontFamily:"Montserrat",
+        top:"30px",
+        position:"absolute",
+        right:"30px",
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"center"
+    },
+    code:{
+        color:"white",
+        fontFamily:"Montserrat",
+        position:"absolute",
+        left:"10%",
+        top:"50%",
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"flex-end"
+
+    },
+    textfield:{
+       color:"info",
+       borderColor:"white"
     }
+
     
 }))
