@@ -3,8 +3,8 @@ import { useStyle } from "./style"
 import {Typography} from "@material-ui/core"
 import PersonIcon from '@mui/icons-material/Person'
 import TextField from '@mui/material/TextField'
-import WebFont from 'webfontloader';
-
+import WebFont from 'webfontloader'
+import axios from "axios"
 
 
 export default function HomePage(){
@@ -19,6 +19,9 @@ export default function HomePage(){
 
     const style = useStyle();
 
+    axios.post("http://localhost:8080/api/getCode").then((res)=>{
+      console.log(res)
+    })
     
 
     return (
