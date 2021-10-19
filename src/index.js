@@ -1,20 +1,19 @@
+import { ThemeProvider } from '@mui/private-theming';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HomePage from './components/HomePage/homePage';
 import Router from "./components/Router/router";
-import axios from "axios";
+import { createTheme } from '@mui/material/styles';
 
 
-import { ThemeProvider } from '@mui/private-theming';
 
-
+const theme = createTheme({});
 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
        <Router/>
       </ThemeProvider>
   </React.StrictMode>,

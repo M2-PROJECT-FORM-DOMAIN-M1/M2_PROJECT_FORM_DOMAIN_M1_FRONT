@@ -15,8 +15,8 @@ export const useStyle = makeStyles((theme)=>({
     },
     title:{
        color:"white",
-       fontFamily:"Montserrat" ,
-       fontWeight:"bold",
+       fontFamily:"Montserrat !important" ,
+       fontWeight: "bold !important",
        position:"absolute",
        top:"30px",
        left:"30px"
@@ -31,6 +31,9 @@ export const useStyle = makeStyles((theme)=>({
         flexDirection:"row",
         alignItems:"center"
     },
+    iconPerson:{
+        marginRight:"7px"
+    },
     code:{
         color:"white",
         fontFamily:"Montserrat",
@@ -42,9 +45,32 @@ export const useStyle = makeStyles((theme)=>({
         alignItems:"flex-end"
 
     },
-    textfield:{
-       color:"info",
-       borderColor:"white"
+    textFieldCode:{
+        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "white"
+          },
+          "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#AAA"
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#AAA"
+          },
+          "& .MuiOutlinedInput-input": {
+            color: "#BBB"
+          },
+          "&:hover .MuiOutlinedInput-input": {
+            color: "#BBB"
+          },
+          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+            color: "white"
+          },
+          [theme.breakpoints.down('md')]: {
+            width:"80%",
+          },
+          
+    },
+    formCode:{
+        marginTop:"10px",
     }
 
     
