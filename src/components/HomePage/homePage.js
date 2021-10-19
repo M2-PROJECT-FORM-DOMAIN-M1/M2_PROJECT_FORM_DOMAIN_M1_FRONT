@@ -1,6 +1,6 @@
 import React from "react"
 import { useStyle } from "./style"
-import {Typography} from "@material-ui/core"
+import {Typography} from "@mui/material"
 import PersonIcon from '@mui/icons-material/Person'
 import TextField from '@mui/material/TextField'
 import WebFont from 'webfontloader'

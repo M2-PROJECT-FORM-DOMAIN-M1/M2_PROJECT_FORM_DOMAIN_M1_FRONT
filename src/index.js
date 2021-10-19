@@ -5,13 +5,18 @@ import Router from "./components/Router/router";
 import axios from "axios";
 
 
+import { ThemeProvider } from '@mui/private-theming';
+
+
 
 
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router/>
+    <ThemeProvider>
+       <Router/>
+      </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
