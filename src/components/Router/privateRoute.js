@@ -1,13 +1,8 @@
 import React from 'react';
-import {Redirect, Route} from 'react-router-dom';
 
-import {useTheme} from "@material-ui/core/styles";
 
 
 const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}) => {
-
-    const theme = useTheme();
-    //const auth = ContextAuth();
 
 
     return (
