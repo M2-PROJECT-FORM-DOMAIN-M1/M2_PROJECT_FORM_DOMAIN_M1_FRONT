@@ -12,13 +12,13 @@ const theme = createTheme({});
 
 ReactDOM.render(
     <React.StrictMode>
-        <DialogProvider>
-            <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+            <DialogProvider>
                 <SnackbarProvider maxSnack={3}>
                     <Router/>
                 </SnackbarProvider>
-            </ThemeProvider>
-        </DialogProvider>
+            </DialogProvider>
+        </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
