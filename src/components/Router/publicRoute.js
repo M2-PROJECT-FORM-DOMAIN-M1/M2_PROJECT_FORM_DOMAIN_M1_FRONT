@@ -1,6 +1,6 @@
+import { useTheme } from "@mui/styles";
 import React from 'react';
-import {Redirect, Route} from 'react-router-dom';
-import {useTheme} from "@material-ui/core/styles";
+import { Route } from 'react-router-dom';
 
 const PublicRoute = ({component: Component, restricted, ...rest}) => {
 
