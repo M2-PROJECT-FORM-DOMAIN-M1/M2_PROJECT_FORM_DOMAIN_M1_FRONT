@@ -15,10 +15,11 @@ export default function HomePage() {
 
     const style = useStyle();
 
-    React.useEffect(() => {
-        dialogContext.handleOpenDialog(<ConnexionPopUp/>)
-    }, [])
 
+
+    const showPopUpConnection = ()=>{
+        dialogContext.handleOpenDialog(<ConnexionPopUp/>)
+    }
 
     const sendCode = (e) => {
         e.preventDefault()
@@ -33,7 +34,7 @@ export default function HomePage() {
         <div className={style.root}>
             <Typography variant="h3" component="h1" className={style.title}>ISEN FORM</Typography>
 
-            <div className={style.ConnectionTitle}>
+            <div className={style.ConnectionTitle} onClick={showPopUpConnection}>
                 <PersonIcon fontSize="medium" className={style.iconPerson}/>
                 <Typography variant="h6" component="h2">Connection</Typography>
             </div>
