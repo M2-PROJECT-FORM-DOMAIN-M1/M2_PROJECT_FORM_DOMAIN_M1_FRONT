@@ -6,6 +6,7 @@ import {createTheme} from '@mui/material/styles';
 import {SnackbarProvider} from "notistack";
 import {DialogProvider} from "./components/Context/dialogContext";
 import {UserProvider} from "./components/Context/userContect";
+import {SpinnerProvider} from "./components/Context/spinnerContext";
 
 
 const theme = createTheme({});
@@ -14,13 +15,15 @@ const theme = createTheme({});
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <UserProvider>
-                <DialogProvider>
-                    <SnackbarProvider maxSnack={3}>
-                        <Router/>
-                    </SnackbarProvider>
-                </DialogProvider>
-            </UserProvider>
+            <SpinnerProvider>
+                <UserProvider>
+                    <DialogProvider>
+                        <SnackbarProvider maxSnack={3}>
+                            <Router/>
+                        </SnackbarProvider>
+                    </DialogProvider>
+                </UserProvider>
+            </SpinnerProvider>
         </ThemeProvider>
     </React.StrictMode>,
     document.getElementById('root')

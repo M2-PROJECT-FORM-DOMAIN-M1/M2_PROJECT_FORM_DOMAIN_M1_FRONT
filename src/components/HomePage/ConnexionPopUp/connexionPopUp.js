@@ -7,33 +7,70 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import {useUser} from "../../Context/userContect";
 import {useDialog} from "../../Context/dialogContext";
+import {useSpinner} from "../../Context/spinnerContext";
 
 export default function ConnexionPopUp() {
 
+    const spinnerContext = useSpinner();
     const dialogContext = useDialog();
     const classes = useStyle();
     const userContext = useUser();
 
-    const sendCredentials =(e)=>{
+    const [errorConnection, setErrorConnection] = React.useState("")
+
+    const [formConnectionError, setFormConnectionError] = React.useState({
+        usernameOrEmail: "",
+        password: "",
+    })
+
+
+    const sendCredentials = (e) => {
+        setErrorConnection("")
+        setFormConnectionError({
+            usernameOrEmail: "",
+            password: "",
+        })
         e.preventDefault();
         const formData = new FormData(e.target);
         const formProps = Object.fromEntries(formData);
 
-        axios.post("/auth/signin", formProps).then((res) => {
-            if(res.status === 200){
-                dialogContext.handleCloseDialog();
-                userContext.dispatch(
-                    {
-                        type: 'signIn',
-                        user:res.data.users,
-                        token:res.data.accessToken
-                    }
-                )
-            }
+        let error = {
+            usernameOrEmail: "",
+            password: ""
+        }
 
-        }).catch((res)=>{
-            console.log(res)
-        })
+        let isError = false;
+        for (const [key, value] of Object.entries(formProps)) {
+            if (value === "") {
+                isError = true;
+                error[key] = "Field cannot be empty"
+            }
+        }
+        if (isError) {
+            setFormConnectionError(error)
+        } else {
+            spinnerContext.handleOpenSpinner();
+            axios.post("/auth/signin", formProps).then((res) => {
+                if (res.status === 200) {
+                    dialogContext.handleCloseDialog();
+                    userContext.dispatch(
+                        {
+                            type: 'signIn',
+                            user: res.data.users,
+                            token: res.data.accessToken
+                        }
+                    )
+                }
+                spinnerContext.handleCloseSpinner();
+            }).catch((res) => {
+                setErrorConnection(res.response.data.message)
+                spinnerContext.handleCloseSpinner();
+            })
+
+
+        }
+
+
     }
 
 
@@ -43,24 +80,29 @@ export default function ConnexionPopUp() {
             <Typography variant="h4" component="h2" className={classes.title}>Connexion </Typography>
             <form onSubmit={sendCredentials}>
 
-                <Grid container spacing={2} className={classes.containerGrid} justifyContent={"center"}>
+                <Grid container  className={classes.containerGrid} justifyContent={"center"}>
                     <Grid item xs={12}>
-                        <TextField label="Username" name="usernameOrEmail" variant="outlined" placeholder="Username"
+                        <TextField error={formConnectionError.usernameOrEmail !== ""}
+                                   helperText={formConnectionError.usernameOrEmail !== "" ? formConnectionError.usernameOrEmail : ''}
+                                   label="Username" name="usernameOrEmail" variant="outlined" placeholder="Username"
                                    className={classes.textFieldUsername}/>
                     </Grid>
-                    <Grid item xs={12}>
-
-                        <TextField label="Password" type={"password"} name="password" variant="outlined"
+                    <Grid item xs={12} className={classes.gridContainerPassword}>
+                        <TextField error={formConnectionError.password !== ""}
+                                   helperText={formConnectionError.password !== "" ? formConnectionError.password : ''}
+                                   label="Password" type={"password"} name="password" variant="outlined"
                                    placeholder="Password"
                                    className={classes.textFieldPassword}/>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} className={classes.gridContainerSubmit}>
                         <Button variant="contained" type={"submit"} className={classes.submitButton}>
                             Submit
                         </Button>
                     </Grid>
                 </Grid>
             </form>
+            <Typography className={classes.errorConnection} variant="body1" component="p" >{errorConnection !== "" ? errorConnection : ""} </Typography>
+
         </div>
 
 
