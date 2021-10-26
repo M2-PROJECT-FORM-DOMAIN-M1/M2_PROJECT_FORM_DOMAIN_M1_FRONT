@@ -5,9 +5,8 @@ import Router from "./components/Router/router";
 import {createTheme} from '@mui/material/styles';
 import {SnackbarProvider} from "notistack";
 import {DialogProvider} from "./components/Context/dialogContext";
-import {UserProvider} from "./components/Context/userContect";
+import {UserProvider} from "./components/Context/userContact";
 import {SpinnerProvider} from "./components/Context/spinnerContext";
-
 
 const theme = createTheme({});
 

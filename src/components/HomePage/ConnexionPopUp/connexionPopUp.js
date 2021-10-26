@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import {Grid} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import {useUser} from "../../Context/userContect";
+import {useUser} from "../../Context/userContact";
 import {useDialog} from "../../Context/dialogContext";
 import {useSpinner} from "../../Context/spinnerContext";
 
@@ -57,7 +57,7 @@ export default function ConnexionPopUp() {
                         {
                             type: 'signIn',
                             user: res.data.users,
-                            token: res.data.accessToken
+                            tokenBearer: res.data.accessToken,
                         }
                     )
                 }
