@@ -5,8 +5,8 @@ import HomePage from "../HomePage/homePage";
 import PublicRoute from "./publicRoute";
 import WebFont from "webfontloader";
 import PrivateRoute from "./privateRoute";
-import DashboardSuperAdmin from "../SuperAdmin/dashboard";
-import DashboardAdmin from "../Admin/dashboard";
+import DashboardSuperAdmin from "../SuperAdmin/dashboardSuperAdmin";
+import DashboardAdmin from "../Admin/dashboardAdmin";
 
 export default function Router() {
     axios.defaults.baseURL = process.env.REACT_APP_BACK_URL
