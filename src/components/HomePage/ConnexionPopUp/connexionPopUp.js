@@ -60,10 +60,21 @@ export default function ConnexionPopUp() {
                             tokenBearer: res.data.accessToken,
                         }
                     )
+
+                    if(res.data.users.authority === "ROLE_SUPER_ADMIN"){
+                        window.location.replace(process.env.REACT_APP_FRONT_URL+"SuperAdmin");
+                    }else  if(res.data.users.authority === "ROLE_ADMIN"){
+                        window.location.replace(process.env.REACT_APP_FRONT_URL+"Admin");
+                    }
+
                 }
                 spinnerContext.handleCloseSpinner();
             }).catch((res) => {
-                setErrorConnection(res.response.data.message)
+                if(res.response){
+                    setErrorConnection(res.response.data.message)
+                }else{
+                    setErrorConnection("Unable to connect")
+                }
                 spinnerContext.handleCloseSpinner();
             })
 

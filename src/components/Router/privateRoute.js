@@ -34,7 +34,7 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
             )
             spinnerContext.handleCloseSpinner()
             setIsLoading(false)
-           // window.location.replace(process.env.REACT_APP_FRONT_URL);
+            window.location.replace(process.env.REACT_APP_FRONT_URL);
         })
     }, [])
     return (

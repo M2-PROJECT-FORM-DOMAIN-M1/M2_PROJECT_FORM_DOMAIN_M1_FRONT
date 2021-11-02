@@ -24,7 +24,8 @@ export const useStyle = makeStyles((theme) => ({
             top: "100px",
         },
     },
-    ConnectionTitle: {
+    connectionTitle: {
+        cursor:"pointer",
         color: "white",
         fontFamily: "Montserrat",
         top: "30px",
