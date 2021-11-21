@@ -27,6 +27,7 @@ const DrawerStyled = styled(MuiDrawer, {shouldForwardProp: (prop) => prop !== 'o
     ({theme, open}) => ({
         width: Constant.SIZE_DRAWER_WIDTH,
         flexShrink: 0,
+
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
         ...(open && {

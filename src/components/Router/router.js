@@ -5,7 +5,7 @@ import HomePage from "../HomePage/homePage";
 import PublicRoute from "./publicRoute";
 import WebFont from "webfontloader";
 import PrivateRoute from "./privateRoute";
-import DashboardSuperAdmin from "../SuperAdmin/dashboard";
+import DashboardSuperAdmin from "../SuperAdmin/dashboardSuperAdmin";
 import DashboardAdmin from "../Admin/dashboard";
 
 export default function Router() {
