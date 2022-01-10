@@ -14,7 +14,6 @@ function useUser() {
 function reducer(state, action) {
     switch (action.type) {
         case 'signIn':
-            localStorage.setItem('user', JSON.stringify(action.user) );
             localStorage.setItem('tokenBearer', action.tokenBearer);
             axios.defaults.headers.common['Authorization'] = "Bearer " + action.tokenBearer
             return {
@@ -23,9 +22,8 @@ function reducer(state, action) {
                 isConnected:true
             };
         case'signOut':
-            localStorage.setItem('user',null);
             localStorage.setItem('tokenBearer', null);
-            axios.defaults.headers.common['Authorization'] = ""
+            axios.defaults.headers.common['Authorization'] =""
             return {
                 isConnected:false,
                 user: null,
@@ -34,7 +32,6 @@ function reducer(state, action) {
 
         case 'checkConnection':
             if(action.isConnected){
-                localStorage.setItem('user', JSON.stringify(action.user) );
                 localStorage.setItem('tokenBearer', state.tokenBearer);
                 axios.defaults.headers.common['Authorization'] ="Bearer "+ state.tokenBearer
                 return {
@@ -44,7 +41,6 @@ function reducer(state, action) {
                 };
             }
             else{
-                localStorage.setItem('user',null);
                 localStorage.setItem('tokenBearer', null);
                 axios.defaults.headers.common['Authorization'] =""
                 return {
@@ -63,9 +59,8 @@ function reducer(state, action) {
 
 function UserProvider({children}) {
 
-    const user = localStorage.getItem("user") !== "undefined" ? JSON.parse(localStorage.getItem("user")) : null
     const tokenBearer = localStorage.getItem("tokenBearer");
-    const [state, dispatch] = React.useReducer(reducer, {user:user, tokenBearer:tokenBearer,isConnected:false});
+    const [state, dispatch] = React.useReducer(reducer, {user:null, tokenBearer:tokenBearer,isConnected:false});
     axios.defaults.headers.common['Authorization'] = "Bearer " + tokenBearer
 
     return (

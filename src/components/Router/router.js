@@ -7,6 +7,7 @@ import WebFont from "webfontloader";
 import PrivateRoute from "./privateRoute";
 import DashboardSuperAdmin from "../SuperAdmin/dashboardSuperAdmin";
 import DashboardAdmin from "../Admin/dashboard";
+import {useUser} from "../Context/userContact";
 
 export default function Router() {
     axios.defaults.baseURL = process.env.REACT_APP_BACK_URL
@@ -18,6 +19,21 @@ export default function Router() {
             }
         })
     }, [])
+
+    const userContext = useUser();
+    axios.interceptors.response.use(config => {
+        if (config.headers["expired-token"] === "true") {
+            userContext.dispatch(
+                {
+                    type: 'signOut',
+                }
+            )
+        }
+        return config
+    }, function (error) {
+
+        return Promise.reject(error);
+    });
 
 
 

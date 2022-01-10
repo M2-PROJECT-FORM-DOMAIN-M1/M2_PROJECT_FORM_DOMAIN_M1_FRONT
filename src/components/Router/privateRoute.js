@@ -11,10 +11,11 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
     const userContext = useUser();
     const [isLoading, setIsLoading] = React.useState(true)
 
+    console.log(routeRedirect)
+
     React.useEffect(() => {
         spinnerContext.handleOpenSpinner()
         axios.post("/auth/isConnected").then((res) => {
-
 
             userContext.dispatch(
                 {
@@ -25,7 +26,7 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
             )
             spinnerContext.handleCloseSpinner()
             setIsLoading(false)
-        }).catch(() => {
+        }).catch((res) => {
             userContext.dispatch(
                 {
                     isConnected: false,
