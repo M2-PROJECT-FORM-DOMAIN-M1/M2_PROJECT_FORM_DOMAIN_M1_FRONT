@@ -17,6 +17,7 @@ export const useStyle = makeStyles((theme) => ({
         color: 'white',
     },
     divider: {
+
         borderColor: "white !important",
     },
     nameUser: {
@@ -31,6 +32,8 @@ export const useStyle = makeStyles((theme) => ({
         marginTop: '15px',
     },
     textFieldSearch: {
+        width:'95% !important',
+        maxWidth:'350px',
         "& .MuiInputLabel-filled": {
             color: 'white',
         },
@@ -71,25 +74,37 @@ export const useStyle = makeStyles((theme) => ({
     disconnectButton: {
         padding: '5px',
         fontWeight: 'bold',
-        backgroundColor:"#576CD9 !important",
+        backgroundColor: "#576CD9 !important",
     },
-    container:{
-        padding:'20px',
+    container: {
+        padding: '20px',
     },
-    containerOpen:{
-        marginLeft:Constant.SIZE_DRAWER_WIDTH_OPEN,
+    containerOpen: {
+        marginLeft: Constant.SIZE_DRAWER_WIDTH_OPEN,
         transition: theme.transitions.create('margin-left', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
-    containerClose:{
-        marginLeft:Constant.SIZE_DRAWER_WIDTH_CLOSE,
+    containerClose: {
+        marginLeft: Constant.SIZE_DRAWER_WIDTH_CLOSE,
         transition: theme.transitions.create('margin-left', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-
-    }
+    },
+    containerButtonAutoComplete: {
+        display: 'flex',
+        position: 'absolute',
+        right: '10px',
+        top: 'calc(50%)',
+        '& .MuiIconButton-root': {
+            color: 'white !important',
+        }
+    },
+    dividerDisconnect: {
+        margin: 'auto ! important',
+        width: '80%',
+    },
 
 }))

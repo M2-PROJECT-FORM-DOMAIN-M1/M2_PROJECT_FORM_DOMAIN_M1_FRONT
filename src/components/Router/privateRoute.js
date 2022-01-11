@@ -11,8 +11,6 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
     const userContext = useUser();
     const [isLoading, setIsLoading] = React.useState(true)
 
-    console.log(routeRedirect)
-
     React.useEffect(() => {
         spinnerContext.handleOpenSpinner()
         axios.post("/auth/isConnected").then((res) => {

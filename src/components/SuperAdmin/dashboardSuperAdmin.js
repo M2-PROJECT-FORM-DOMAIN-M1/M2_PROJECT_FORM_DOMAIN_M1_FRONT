@@ -13,12 +13,20 @@ import SearchIcon from '@mui/icons-material/Search';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Button from "@mui/material/Button";
 import DetailedInformationOnAdmin from "./DetailedInformationOnAdmin/detailedInformationOnAdmin";
+import Autocomplete from '@mui/material/Autocomplete';
+import CircularProgress from '@mui/material/CircularProgress';
+import InputAdornment from '@mui/material/InputAdornment';
+import axios from "axios";
 
 export default function DashboardSuperAdmin() {
     const user = useUser().state.user;
 
     const style = useStyle();
 
+    const [options, setOptions] = React.useState([]);
+    const [openAutocomplete, setOpenAutocomplete] = React.useState(false);
+    const [autoCompleteTextFieldValue, setAutoCompleteTextFieldValue] = React.useState("");
+    const [loadingAutoComplete, setLoadingAutoComplete] = React.useState(false)
     const [open, setOpen] = React.useState(true);
     const [whichComponent, setWhichComponent] = React.useState(0);
     const [admin, setAdmin] = React.useState({
@@ -57,6 +65,28 @@ export default function DashboardSuperAdmin() {
         setOpen(!open);
     }
 
+
+    React.useEffect(() => {
+        setLoadingAutoComplete(true)
+        axios.post("/superAdminSearch/autoCompleteUsers", {
+            input: autoCompleteTextFieldValue
+        }).then((res) => {
+            if (res.status === 200) {
+                setOptions(res.data.usersList)
+            } else {
+                throw new Error()
+            }
+
+        }).catch((error) => {
+            console.log(error)
+        }).then(() => {
+            setLoadingAutoComplete(false)
+        })
+
+
+    }, [autoCompleteTextFieldValue]);
+
+
     const drawer = (
         <div>
             <DrawerHeaderStyled open={open}>
@@ -73,20 +103,61 @@ export default function DashboardSuperAdmin() {
                     Filter
                 </Typography>
                 <div className={style.containerTextFieldSearch}>
-                    <TextField
-                        className={style.textFieldSearch}
-                        label="Search"
-                        InputProps={{
-                            endAdornment: (
-                                <SearchIcon/>
-                            ),
+
+                    <Autocomplete
+                        filterOptions={(x) => x}
+                        id="asynchronous-demo"
+                        onOpen={() => {
+                            setOpenAutocomplete(true);
                         }}
-                        variant="filled"
+                        onClose={() => {
+                            setOpenAutocomplete(false);
+                        }}
+                        open={openAutocomplete}
+                        isOptionEqualToValue={(option, value) => option.userName === value.userName}
+                        getOptionLabel={(option) => option.userName}
+                        options={options}
+                        disableClearable
+                        forcePopupIcon={false}
+                        loading={loadingAutoComplete}
+                        renderInput={(params) => (
+                            <TextField
+                                className={style.textFieldSearch}
+                                {...params}
+                                onChange={(e) => {
+                                    setAutoCompleteTextFieldValue(e.target.value)
+                                }}
+                                label="Search"
+                                variant={"filled"}
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <div className={style.containerButtonAutoComplete}>
+                                            {loadingAutoComplete ?
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        edge="end"
+                                                    >
+                                                        <CircularProgress color="inherit" size={20}/>
+                                                    </IconButton>
+                                                </InputAdornment> : null}
+                                            <InputAdornment position="end">
+                                                <IconButton
+                                                    edge="end"
+                                                >
+                                                    <SearchIcon/>
+                                                </IconButton>
+                                            </InputAdornment>
+                                        </div>
+                                    ),
+                                }}
+                            />
+                        )}
                     />
                 </div>
             </div>}
             <div className={style.containerBottom}>
-                <Divider className={style.divider}/>
+                <Divider className={clsx(style.divider, style.dividerDisconnect)}/>
                 <div className={style.disconnect}>
                     {
                         open ?
