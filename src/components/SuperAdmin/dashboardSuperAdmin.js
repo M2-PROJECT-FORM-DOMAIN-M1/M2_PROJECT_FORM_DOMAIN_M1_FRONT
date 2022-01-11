@@ -196,6 +196,6 @@ export default function DashboardSuperAdmin() {
             <div className={clsx(style.container, open ? style.containerOpen : style.containerClose)}>
                 {renderSwitch()}
             </div>
-        </div>
-    )
+    </div>
+)
 }
