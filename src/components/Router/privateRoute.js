@@ -15,7 +15,6 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
         spinnerContext.handleOpenSpinner()
         axios.post("/auth/isConnected").then((res) => {
 
-
             userContext.dispatch(
                 {
                     isConnected: true,
@@ -25,7 +24,7 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
             )
             spinnerContext.handleCloseSpinner()
             setIsLoading(false)
-        }).catch(() => {
+        }).catch((res) => {
             userContext.dispatch(
                 {
                     isConnected: false,
@@ -34,7 +33,7 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
             )
             spinnerContext.handleCloseSpinner()
             setIsLoading(false)
-           // window.location.replace(process.env.REACT_APP_FRONT_URL);
+            window.location.replace(process.env.REACT_APP_FRONT_URL);
         })
     }, [])
     return (

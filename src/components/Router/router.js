@@ -6,6 +6,7 @@ import PublicRoute from "./publicRoute";
 import WebFont from "webfontloader";
 import PrivateRoute from "./privateRoute";
 import DashboardSuperAdmin from "../SuperAdmin/dashboardSuperAdmin";
+import {useUser} from "../Context/userContact";
 import DashboardAdmin from "../Admin/dashboardAdmin";
 
 export default function Router() {
@@ -18,6 +19,21 @@ export default function Router() {
             }
         })
     }, [])
+
+    const userContext = useUser();
+    axios.interceptors.response.use(config => {
+        if (config.headers["expired-token"] === "true") {
+            userContext.dispatch(
+                {
+                    type: 'signOut',
+                }
+            )
+        }
+        return config
+    }, function (error) {
+
+        return Promise.reject(error);
+    });
 
 
 

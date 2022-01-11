@@ -34,7 +34,7 @@ export default function HomePage() {
         <div className={style.root}>
             <Typography variant="h3" component="h1" className={style.title}>ISEN FORM</Typography>
 
-            <div className={style.ConnectionTitle} onClick={showPopUpConnection}>
+            <div className={style.connectionTitle} onClick={showPopUpConnection}>
                 <PersonIcon fontSize="medium" className={style.iconPerson}/>
                 <Typography variant="h6" component="h2">Connection</Typography>
             </div>

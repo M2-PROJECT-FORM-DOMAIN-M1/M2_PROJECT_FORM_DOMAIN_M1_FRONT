@@ -8,7 +8,9 @@ import {DialogProvider} from "./components/Context/dialogContext";
 import {UserProvider} from "./components/Context/userContact";
 import {SpinnerProvider} from "./components/Context/spinnerContext";
 
-const theme = createTheme({});
+const theme = createTheme({
+
+});
 
 
 ReactDOM.render(
