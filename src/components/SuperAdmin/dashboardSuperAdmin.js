@@ -17,49 +17,23 @@ import Autocomplete from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import axios from "axios";
+import {useSpinner} from "../Context/spinnerContext";
+import Container from "@material-ui/core/Container"
 
 export default function DashboardSuperAdmin() {
-    const user = useUser().state.user;
+    const user = useUser();
 
     const style = useStyle();
+
+    const spinner = useSpinner()
 
     const [options, setOptions] = React.useState([]);
     const [openAutocomplete, setOpenAutocomplete] = React.useState(false);
     const [autoCompleteTextFieldValue, setAutoCompleteTextFieldValue] = React.useState("");
     const [loadingAutoComplete, setLoadingAutoComplete] = React.useState(false)
     const [open, setOpen] = React.useState(true);
-    const [whichComponent, setWhichComponent] = React.useState(0);
-    const [admin, setAdmin] = React.useState({
-        "id": 1,
-        "name": "admin",
-        "username": "admin",
-        "email": "admin@admin.admin",
-        "password": "",
-        "forms": [
-            {
-                "id": 1,
-                "name": "Ton prénom",
-                "questions": [
-                    {
-                        "id": 1,
-                        "allPossibleAnswers": "Flo;Alex;Quentin",
-                        "question": "Quel est ton prénom",
-                        "formType": "CHECKBOX",
-                        "answers": []
-                    }
-                ],
-                "lock": false
-            }
-        ],
-        "role": {
-            "id": 1,
-            "name": "ROLE_ADMIN"
-        },
-        "createdAt": "2021-11-24T17:34:26.655395Z",
-        "updatedAt": "2021-11-24T17:34:26.655395Z",
-        "authority": "ROLE_ADMIN"
-
-    })
+    const [whichComponent, setWhichComponent] = React.useState(1);
+    const [admin, setAdmin] = React.useState({})
 
     const handleDrawer = () => {
         setOpen(!open);
@@ -87,11 +61,31 @@ export default function DashboardSuperAdmin() {
     }, [autoCompleteTextFieldValue]);
 
 
+
+    const onChangeAutoComplete = (value)=>{
+        spinner.handleOpenSpinner();
+        axios.post("/superAdmin/admin/getAdmin", {
+            id: value.id
+        }).then((res) => {
+            if (res.status === 200) {
+                setAdmin(res.data.user)
+                setWhichComponent(0)
+            } else {
+                throw new Error()
+            }
+
+        }).catch((error) => {
+            console.log(error)
+        }).then(() => {
+            spinner.handleCloseSpinner();
+        })
+    }
+
     const drawer = (
         <div>
             <DrawerHeaderStyled open={open}>
                 <Typography variant="h6" className={clsx(style.nameUser, !open && style.nameUserClose)}>
-                    {user.name}
+                    {user.state.user.name}
                 </Typography>
                 <IconButton onClick={handleDrawer}>
                     {open ? <ChevronLeftIcon className={style.icons}/> : <ChevronRightIcon className={style.icons}/>}
@@ -105,6 +99,7 @@ export default function DashboardSuperAdmin() {
                 <div className={style.containerTextFieldSearch}>
 
                     <Autocomplete
+                        onChange={(event, value) => onChangeAutoComplete(value)}
                         filterOptions={(x) => x}
                         id="asynchronous-demo"
                         onOpen={() => {
@@ -161,7 +156,11 @@ export default function DashboardSuperAdmin() {
                 <div className={style.disconnect}>
                     {
                         open ?
-                            <Button variant="contained" endIcon={<ExitToAppIcon/>} className={style.disconnectButton}>
+                            <Button variant="contained" endIcon={<ExitToAppIcon/>} className={style.disconnectButton}  onClick={() => user.dispatch(
+                                {
+                                    type: 'signOut',
+                                }
+                            )}>
                                 Disconnect
                             </Button>
                             :
@@ -180,6 +179,8 @@ export default function DashboardSuperAdmin() {
         switch (whichComponent) {
             case 0:
                 return <DetailedInformationOnAdmin connectedAdmin={admin}/>
+            default:
+                return <div></div>
         }
     }
 
@@ -193,9 +194,12 @@ export default function DashboardSuperAdmin() {
             >
                 {drawer}
             </DrawerStyled>
-            <div className={clsx(style.container, open ? style.containerOpen : style.containerClose)}>
-                {renderSwitch()}
-            </div>
+            <Container maxWidth={"xl"}>
+                <div className={clsx(style.container, open ? style.containerOpen : style.containerClose)}>
+                    {renderSwitch()}
+                </div>
+            </Container>
+
     </div>
 )
 }

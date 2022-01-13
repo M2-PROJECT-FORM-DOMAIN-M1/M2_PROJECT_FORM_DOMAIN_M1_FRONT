@@ -7,6 +7,7 @@ export const useStyle = makeStyles((theme) => ({
         fontWeight: "bold",
     },
     root: {
+
         paddingLeft: '15px',
     },
     allFormsContainer: {
@@ -24,6 +25,7 @@ export const useStyle = makeStyles((theme) => ({
         display: "flex",
         flexDirection: 'column',
         backgroundColor: 'grey',
+        margin:'auto !important',
         padding: "15px 10px",
     },
     allForms: {},
@@ -60,6 +62,12 @@ export const useStyle = makeStyles((theme) => ({
     },
     containerTop:{
       display:'flex',
+    },
+    allFormsButtonDelete:{
+        backgroundColor:'red !important',
+    },
+    containerLock:{
+      cursor:"pointer",
     },
 }))
 

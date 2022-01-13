@@ -10,11 +10,40 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 import {green, red} from "@material-ui/core/colors";
 import moment from 'moment';
+import DeleteIcon from '@mui/icons-material/Delete';
+import axios from "axios";
+import {useSpinner} from "../../Context/spinnerContext";
+import {useDialog} from "../../Context/dialogContext";
+import DialogDeleteDetailedInformation from "./DialogDeleteDetailedInformation/dialogDeleteDetailedInformation";
+import Grid from "@material-ui/core/Grid"
 
 export default function DetailedInformationOnAdmin(props) {
     const style = useStyle();
 
     const users = props.connectedAdmin
+
+    const dialog = useDialog();
+    const spinner = useSpinner();
+
+    const clickOnLockIcon = (lock, id) => {
+        spinner.handleOpenSpinner();
+        axios.post("/superAdmin/admin/lock", {
+            lock: !lock,
+            id: id,
+        }).then((res) => {
+            if (res.status === 200) {
+                let form = users.forms.filter((elem) => elem.id === id)[0]
+                form.lock = !lock
+            } else {
+                throw new Error()
+            }
+        }).catch((error) => {
+
+        }).then(() => {
+            spinner.handleCloseSpinner();
+        })
+    }
+
 
     return (
         <div className={style.root}>
@@ -39,8 +68,8 @@ export default function DetailedInformationOnAdmin(props) {
                         </tr>
                         <tr>
                             <td>
-                                <Typography  className={style.infoUsersTitle}>
-                                   Email
+                                <Typography className={style.infoUsersTitle}>
+                                    Email
                                 </Typography>
                             </td>
                             <td className={style.containerInfoUsersContent}>
@@ -67,7 +96,7 @@ export default function DetailedInformationOnAdmin(props) {
                                     Number of Form
                                 </Typography>
                             </td>
-                            <td  className={style.containerInfoUsersContent}>
+                            <td className={style.containerInfoUsersContent}>
                                 <Typography className={style.infoUsersContent}>
                                     {users.forms.length}
                                 </Typography>
@@ -78,34 +107,49 @@ export default function DetailedInformationOnAdmin(props) {
                 </div>
             </div>
 
-
-            <div className={style.allFormsContainer}>
+            <Grid container className={style.allFormsContainer}>
                 {users.forms.map(function (object, i) {
                     return (
-                        <Paper key={i} className={style.rootForm}>
-                            <Button variant="contained" startIcon={<VisibilityIcon/>}
-                                    className={clsx(style.allFormsButtons, style.allFormsButtonCheck)}>
-                                Check
-                            </Button>
-                            <Button variant="contained" startIcon={<EditIcon/>}
-                                    className={clsx(style.allFormsButtons, style.allFormsButtonModify)}>
-                                Modification
-                            </Button>
-                            <Divider/>
-                            <div className={style.allFormsBottom}>
-                                <Typography variant="p" component="h2" className={style.allFormsNameForm}>
-                                    {object.name}
-                                </Typography>
-                                {
-                                    object.isLock ?
-                                        <LockIcon sx={{color: red[500]}}/> :
-                                        <LockOpenIcon sx={{color: green[500]}}/>
-                                }
-                            </div>
-                        </Paper>
+                        <Grid key={i} item xs={4}>
+                            <Paper  className={style.rootForm}>
+                                <Button variant="contained" startIcon={<VisibilityIcon/>}
+                                        className={clsx(style.allFormsButtons, style.allFormsButtonCheck)}>
+                                    Check
+                                </Button>
+                                <Button variant="contained" startIcon={<EditIcon/>}
+                                        className={clsx(style.allFormsButtons, style.allFormsButtonModify)}>
+                                    Modification
+                                </Button>
+                                <Button variant="contained" startIcon={<DeleteIcon/>}
+                                        className={clsx(style.allFormsButtons, style.allFormsButtonDelete)}
+                                        onClick={() => dialog.handleOpenDialog({
+                                            childrenDialog: <DialogDeleteDetailedInformation elem={object}
+                                                                                             users={users}
+                                                                                             dialog={dialog}/>,
+                                            direction: "down"
+                                        })}>
+                                    Supprimer
+                                </Button>
+                                <Divider/>
+                                <div className={style.allFormsBottom}>
+                                    <Typography variant="p" component="h2" className={style.allFormsNameForm}>
+                                        {object.name}
+                                    </Typography>
+                                    <div className={style.containerLock}
+                                         onClick={() => clickOnLockIcon(object.lock, object.id)}>
+                                        {
+                                            object.lock ?
+                                                <LockIcon sx={{color: red[500]}}/> :
+                                                <LockOpenIcon sx={{color: green[500]}}/>
+                                        }
+                                    </div>
+
+                                </div>
+                            </Paper>
+                        </Grid>
                     )
                 })}
-            </div>
+            </Grid>
         </div>
     )
 

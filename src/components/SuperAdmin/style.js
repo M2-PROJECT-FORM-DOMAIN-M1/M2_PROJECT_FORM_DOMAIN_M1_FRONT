@@ -72,6 +72,7 @@ export const useStyle = makeStyles((theme) => ({
         textAlign: 'center',
     },
     disconnectButton: {
+        cursor:'pointer',
         padding: '5px',
         fontWeight: 'bold',
         backgroundColor: "#576CD9 !important",

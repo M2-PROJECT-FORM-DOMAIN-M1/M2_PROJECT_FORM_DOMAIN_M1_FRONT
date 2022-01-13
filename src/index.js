@@ -8,9 +8,7 @@ import {DialogProvider} from "./components/Context/dialogContext";
 import {UserProvider} from "./components/Context/userContact";
 import {SpinnerProvider} from "./components/Context/spinnerContext";
 
-const theme = createTheme({
-
-});
+const theme = createTheme({});
 
 
 ReactDOM.render(
@@ -18,11 +16,11 @@ ReactDOM.render(
         <ThemeProvider theme={theme}>
             <SpinnerProvider>
                 <UserProvider>
-                    <DialogProvider>
-                        <SnackbarProvider maxSnack={3}>
+                    <SnackbarProvider maxSnack={3}>
+                        <DialogProvider>
                             <Router/>
-                        </SnackbarProvider>
-                    </DialogProvider>
+                        </DialogProvider>
+                    </SnackbarProvider>
                 </UserProvider>
             </SpinnerProvider>
         </ThemeProvider>

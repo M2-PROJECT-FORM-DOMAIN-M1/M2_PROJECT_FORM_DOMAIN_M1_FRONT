@@ -16,9 +16,12 @@ export default function HomePage() {
     const style = useStyle();
 
 
+    const showPopUpConnection = () => {
+        dialogContext.handleOpenDialog({
+            childrenDialog: <ConnexionPopUp/>,
+            direction: "down"
 
-    const showPopUpConnection = ()=>{
-        dialogContext.handleOpenDialog(<ConnexionPopUp/>)
+        })
     }
 
     const sendCode = (e) => {
