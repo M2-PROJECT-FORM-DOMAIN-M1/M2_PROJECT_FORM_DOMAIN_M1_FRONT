@@ -164,7 +164,11 @@ export default function DashboardSuperAdmin() {
                                 Disconnect
                             </Button>
                             :
-                            <ExitToAppIcon/>
+                            <ExitToAppIcon  onClick={() => user.dispatch(
+                                {
+                                    type: 'signOut',
+                                }
+                            )}/>
                     }
 
 
