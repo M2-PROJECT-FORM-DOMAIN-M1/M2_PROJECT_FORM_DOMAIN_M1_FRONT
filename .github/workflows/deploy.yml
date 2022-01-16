@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches-ignore:   [ master ]
+    branches:   [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,5 +29,5 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: 22
           script: |
-            cd /home/pi/Desktop/M2_Project_Form_Domain_M1/
+            cd /home/pi/M2-PROJECT-FORM-DOMAIN-M1/
             ./deploy.sh
