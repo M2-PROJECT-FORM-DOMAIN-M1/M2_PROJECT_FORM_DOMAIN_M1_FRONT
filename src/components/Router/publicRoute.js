@@ -1,11 +1,9 @@
-import { useTheme } from "@mui/styles";
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
 const PublicRoute = ({component: Component, restricted, ...rest}) => {
 
-    //const auth = ContextAuth();
-    const theme = useTheme();
+
 
 
     return (

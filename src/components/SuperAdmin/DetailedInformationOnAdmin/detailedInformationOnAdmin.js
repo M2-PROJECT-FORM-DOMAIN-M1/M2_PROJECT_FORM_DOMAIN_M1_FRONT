@@ -8,14 +8,13 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
-import {green, red} from "@material-ui/core/colors";
+import {green, red} from "@mui/material/colors";
 import moment from 'moment';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 import {useSpinner} from "../../Context/spinnerContext";
 import {useDialog} from "../../Context/dialogContext";
 import DialogDeleteDetailedInformation from "./DialogDeleteDetailedInformation/dialogDeleteDetailedInformation";
-import Grid from "@material-ui/core/Grid"
 
 export default function DetailedInformationOnAdmin(props) {
     const style = useStyle();
@@ -107,16 +106,20 @@ export default function DetailedInformationOnAdmin(props) {
                 </div>
             </div>
 
-            <Grid container className={style.allFormsContainer}>
+            <div className={style.allFormsContainer}>
                 {users.forms.map(function (object, i) {
                     return (
-                        <Grid key={i} item xs={4}>
+                        <div key={i} >
                             <Paper  className={style.rootForm}>
                                 <Button variant="contained" startIcon={<VisibilityIcon/>}
                                         className={clsx(style.allFormsButtons, style.allFormsButtonCheck)}>
-                                    Check
+                                    Results
                                 </Button>
                                 <Button variant="contained" startIcon={<EditIcon/>}
+                                        onClick={()=> {
+                                            props.changeComponent(1)
+                                            props.setIdForm(object.id)
+                                        }}
                                         className={clsx(style.allFormsButtons, style.allFormsButtonModify)}>
                                     Modification
                                 </Button>
@@ -128,7 +131,7 @@ export default function DetailedInformationOnAdmin(props) {
                                                                                              dialog={dialog}/>,
                                             direction: "down"
                                         })}>
-                                    Supprimer
+                                    Delete
                                 </Button>
                                 <Divider/>
                                 <div className={style.allFormsBottom}>
@@ -145,11 +148,16 @@ export default function DetailedInformationOnAdmin(props) {
                                     </div>
 
                                 </div>
+                                <div className={style.codeContainer}>
+                                    <Typography className={style.allFormsCode}>
+                                        Code : <span className={style.allFormsCodeValue}> {object.code}</span>
+                                    </Typography>
+                                </div>
                             </Paper>
-                        </Grid>
+                        </div>
                     )
                 })}
-            </Grid>
+            </div>
         </div>
     )
 

@@ -18,7 +18,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import InputAdornment from '@mui/material/InputAdornment';
 import axios from "axios";
 import {useSpinner} from "../Context/spinnerContext";
-import Container from "@material-ui/core/Container"
+import Container from "@mui/material/Container"
+import EditForm from "../Form/EditAndQuestionForm/editAndQuestionForm";
+import {useSnackbar} from "notistack";
 
 export default function DashboardSuperAdmin() {
     const user = useUser();
@@ -26,23 +28,29 @@ export default function DashboardSuperAdmin() {
     const style = useStyle();
 
     const spinner = useSpinner()
-
+    const {closeSnackbar } = useSnackbar();
     const [options, setOptions] = React.useState([]);
     const [openAutocomplete, setOpenAutocomplete] = React.useState(false);
     const [autoCompleteTextFieldValue, setAutoCompleteTextFieldValue] = React.useState("");
     const [loadingAutoComplete, setLoadingAutoComplete] = React.useState(false)
     const [open, setOpen] = React.useState(true);
     const [whichComponent, setWhichComponent] = React.useState(1);
+    const [idForm, setIdForm] = React.useState(0);
+
     const [admin, setAdmin] = React.useState({})
 
     const handleDrawer = () => {
         setOpen(!open);
     }
 
+    const changeComponent=(id)=>{
+        closeSnackbar()
+        setWhichComponent(id)
+    }
 
     React.useEffect(() => {
         setLoadingAutoComplete(true)
-        axios.post("/superAdminSearch/autoCompleteUsers", {
+        axios.post("/superAdmin/superAdminSearch/autoCompleteUsers", {
             input: autoCompleteTextFieldValue
         }).then((res) => {
             if (res.status === 200) {
@@ -69,7 +77,7 @@ export default function DashboardSuperAdmin() {
         }).then((res) => {
             if (res.status === 200) {
                 setAdmin(res.data.user)
-                setWhichComponent(0)
+                changeComponent(0)
             } else {
                 throw new Error()
             }
@@ -101,7 +109,7 @@ export default function DashboardSuperAdmin() {
                     <Autocomplete
                         onChange={(event, value) => onChangeAutoComplete(value)}
                         filterOptions={(x) => x}
-                        id="asynchronous-demo"
+
                         onOpen={() => {
                             setOpenAutocomplete(true);
                         }}
@@ -180,9 +188,12 @@ export default function DashboardSuperAdmin() {
 
 
     const renderSwitch = () => {
+
         switch (whichComponent) {
             case 0:
-                return <DetailedInformationOnAdmin connectedAdmin={admin}/>
+                return <DetailedInformationOnAdmin setIdForm={setIdForm} changeComponent={changeComponent} connectedAdmin={admin}/>
+            case 1:
+                return <EditForm  isCreation={false} connectedAdmin={admin} idForm={idForm} />
             default:
                 return <div></div>
         }
