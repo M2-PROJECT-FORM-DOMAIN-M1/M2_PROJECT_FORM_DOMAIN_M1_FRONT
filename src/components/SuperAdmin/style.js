@@ -4,9 +4,8 @@ import Constant from "../Constant";
 
 export const useStyle = makeStyles((theme) => ({
     root: {
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "#F4F8FB",
+        minHeight: "100vh",
+        backgroundColor: "rgba(87,108,217,0.13)",
     },
     drawer: {
         '& > div': {

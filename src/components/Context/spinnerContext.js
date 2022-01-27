@@ -50,6 +50,9 @@ function SpinnerProvider({children}) {
         setOpenSpinner(true)
     }
 
+    const getValueSpinner = ()=>{
+        return openSpinner
+    }
 
     const [openSpinner, setOpenSpinner] = React.useState(false);
 
@@ -57,6 +60,7 @@ function SpinnerProvider({children}) {
         <SpinnerContext.Provider value={{
             handleCloseSpinner: handleCloseSpinner,
             handleOpenSpinner: handleOpenSpinner,
+            getValueSpinner:getValueSpinner,
         }}>
             {
                 openSpinner && <div className={classes.container}>

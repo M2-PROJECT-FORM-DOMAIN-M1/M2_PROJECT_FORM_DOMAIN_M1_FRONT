@@ -35,6 +35,7 @@ const PrivateRoute = ({component: Component, userAccept, routeRedirect, ...rest}
             setIsLoading(false)
             window.location.replace(process.env.REACT_APP_FRONT_URL);
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <Route {...rest} render={props => (
