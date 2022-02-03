@@ -11,6 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import listToPossibleAnswer from "../../../../Utils/listToPossibleAnswer";
 import reorder from "../../../../Utils/reorder";
+import Option from "../Options/options";
 
 
 export default function EditedQuestionCheckBox(props) {
@@ -89,7 +90,7 @@ export default function EditedQuestionCheckBox(props) {
                     )}
                 </Droppable>
             </DragDropContext>
-
+            <Option questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
             <Divider/>
             <div className={style.bottom}>
                 <IconButton onClick={() => dialog.handleOpenDialog({

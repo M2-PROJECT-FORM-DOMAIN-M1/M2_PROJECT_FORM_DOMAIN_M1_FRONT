@@ -62,9 +62,9 @@ export default function ConnexionPopUp() {
                     )
 
                     if(res.data.users.authority === "ROLE_SUPER_ADMIN"){
-                        window.location.replace("/SuperAdmin");
+                        window.location.replace("/superAdmin");
                     }else  if(res.data.users.authority === "ROLE_ADMIN"){
-                        window.location.replace("/Admin");
+                        window.location.replace("/admin");
                     }
 
                 }

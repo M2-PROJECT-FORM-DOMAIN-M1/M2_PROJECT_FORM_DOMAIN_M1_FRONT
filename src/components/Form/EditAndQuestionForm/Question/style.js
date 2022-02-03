@@ -23,4 +23,11 @@ export const useStyle = makeStyles((theme) => ({
     containerTextHeader:{
         flex:'1',
     },
+    ects:{
+        fontSize:'10px !important',
+        color:'grey',
+    },
+    containerOption:{
+      marginTop:'5px',
+    },
 }))

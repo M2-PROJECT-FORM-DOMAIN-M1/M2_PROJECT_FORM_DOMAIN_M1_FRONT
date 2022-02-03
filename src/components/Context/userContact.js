@@ -22,7 +22,7 @@ function reducer(state, action) {
                 isConnected:true
             };
         case'signOut':
-            localStorage.setItem('tokenBearer', null);
+            localStorage.removeItem('tokenBearer');
             axios.defaults.headers.common['Authorization'] =""
             return {
                 isConnected:false,
@@ -61,7 +61,10 @@ function UserProvider({children}) {
 
     const tokenBearer = localStorage.getItem("tokenBearer");
     const [state, dispatch] = React.useReducer(reducer, {user:null, tokenBearer:tokenBearer,isConnected:false});
-    axios.defaults.headers.common['Authorization'] = "Bearer " + tokenBearer
+
+    if(tokenBearer){
+        axios.defaults.headers.common['Authorization'] = "Bearer " + tokenBearer
+    }
 
     return (
         <UserContext.Provider value={{

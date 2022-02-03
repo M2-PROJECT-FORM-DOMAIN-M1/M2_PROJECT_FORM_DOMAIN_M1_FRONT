@@ -12,6 +12,7 @@ import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import listToPossibleAnswer from "../../../../Utils/listToPossibleAnswer";
 import reorder from "../../../../Utils/reorder";
 import Radio from "@mui/material/Radio";
+import Option from "../Options/options";
 
 
 export default function EditedQuestionRadio(props) {
@@ -90,7 +91,7 @@ export default function EditedQuestionRadio(props) {
                     )}
                 </Droppable>
             </DragDropContext>
-
+            <Option questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
             <Divider/>
             <div className={style.bottom}>
                 <IconButton onClick={() => dialog.handleOpenDialog({
