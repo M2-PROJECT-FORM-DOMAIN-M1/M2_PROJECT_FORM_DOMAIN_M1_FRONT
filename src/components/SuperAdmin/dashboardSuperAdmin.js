@@ -76,6 +76,7 @@ export default function DashboardSuperAdmin() {
             id: value.id
         }).then((res) => {
             if (res.status === 200) {
+                console.log(res.data)
                 setAdmin(res.data.user)
                 changeComponent(0)
             } else {

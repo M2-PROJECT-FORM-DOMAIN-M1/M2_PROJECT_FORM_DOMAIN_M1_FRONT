@@ -4,5 +4,6 @@ export default class Constant {
 
     static ANSWER_DELIMITER = ";"
 
+    static COLOR_ANSWER="#3F2A56"
 
 }

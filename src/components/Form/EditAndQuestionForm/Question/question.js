@@ -46,6 +46,16 @@ export default function Question(props) {
                             elem.questionType.questionTypeRenderText
                         }
                     </Typography>
+                    <div className={style.containerOption}>
+                        {
+                            elem.ects > 0 &&      <Typography className={style.ects} variant={"body1"}>
+                                {
+                                    "ECTS : " +  elem.ects
+                                }
+                            </Typography>
+                        }
+                    </div>
+
                 </div>
                 <div>
                     <EditIcon onClick={(e) => {

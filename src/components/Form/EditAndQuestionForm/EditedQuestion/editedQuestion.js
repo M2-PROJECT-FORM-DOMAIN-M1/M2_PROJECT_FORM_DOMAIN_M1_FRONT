@@ -32,7 +32,7 @@ export default function EditedQuestion(props) {
             case "RADIO":
                 return <EditedQuestionRadio handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
             case "TEXTINPUT":
-                return <EditedQuestionTextInput handleSaveEditedQuestion={handleSaveEditedQuestion} />
+                return <EditedQuestionTextInput  setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited} handleSaveEditedQuestion={handleSaveEditedQuestion} />
             default :
                 console.error("unkown question type")
                 return <div/>
@@ -62,6 +62,7 @@ export default function EditedQuestion(props) {
                     {
                         getAnswerVue(props.questionEdited.questionType.questionType)
                     }
+
                 </>
             }
 

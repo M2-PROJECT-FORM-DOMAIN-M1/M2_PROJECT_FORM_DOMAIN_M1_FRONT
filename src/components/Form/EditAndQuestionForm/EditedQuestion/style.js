@@ -7,16 +7,10 @@ export const useStyle = makeStyles((theme) => ({
         padding:'10px 15px',
         overflowY:'auto',
     },
-    titleQuestion:{
-
-    },
-    typeQuestion:{
-
-    },
     closeIcon:{
         position:'absolute',
         right:'5px',
         top:'10px',
         cursor:'pointer',
-    }
+    },
 }))

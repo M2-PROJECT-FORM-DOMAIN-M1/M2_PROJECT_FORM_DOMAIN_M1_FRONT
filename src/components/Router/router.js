@@ -8,6 +8,8 @@ import PrivateRoute from "./privateRoute";
 import DashboardSuperAdmin from "../SuperAdmin/dashboardSuperAdmin";
 import {useUser} from "../Context/userContact";
 import DashboardAdmin from "../Admin/dashboardAdmin";
+import AnswerForm from "../AnswerForm/answerForm";
+import LoginOffice from "../LoginOffice/loginOffice";
 
 export default function Router() {
     axios.defaults.baseURL = process.env.REACT_APP_BACK_URL
@@ -22,6 +24,7 @@ export default function Router() {
 
     const userContext = useUser();
     axios.interceptors.response.use(config => {
+
         if (config.headers["expired-token"] === "true") {
             userContext.dispatch(
                 {
@@ -43,8 +46,10 @@ export default function Router() {
         <BrowserRouter>
             <Switch>
                 <PublicRoute component={HomePage} path="/" exact/>
-                <PrivateRoute userAccept={"ROLE_SUPER_ADMIN"} component={DashboardSuperAdmin} path={"/SuperAdmin"} routeRedirect={"/"} exact/>
-                <PrivateRoute userAccept={"ROLE_ADMIN"} component={DashboardAdmin} path={"/Admin"} routeRedirect={"/"} exact/>
+                <PrivateRoute userAccept={"ROLE_SUPER_ADMIN"} component={DashboardSuperAdmin} path={"/superAdmin"} routeRedirect={"/"} exact/>
+                <PrivateRoute userAccept={"ROLE_ADMIN"} component={DashboardAdmin} path={"/admin"} routeRedirect={"/"} exact/>
+                <PublicRoute component={AnswerForm} path="/answerForm/:code" exact/>
+                <PublicRoute component={LoginOffice} path="/loginOffice" exact/>
 
             </Switch>
         </BrowserRouter>
