@@ -6,4 +6,6 @@ export default class Constant {
 
     static COLOR_ANSWER="#3F2A56"
 
+    static COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042','#3F2A56'];
+
 }

@@ -50,7 +50,7 @@ export default function Router() {
                 <PrivateRoute userAccept={"ROLE_ADMIN"} component={DashboardAdmin} path={"/admin"} routeRedirect={"/"} exact/>
                 <PublicRoute component={AnswerForm} path="/answerForm/:code" exact/>
                 <PublicRoute component={LoginOffice} path="/loginOffice" exact/>
-
+                <PublicRoute component={HomePage} path="/*"/>
             </Switch>
         </BrowserRouter>
 

@@ -45,7 +45,7 @@ export const useStyle = makeStyles((theme) => ({
     editRoot: {
         right:'40px',
         top:'5vh',
-        position: 'absolute',
+        position: 'fixed',
         height: '90vh',
         width: '350px',
     },
@@ -57,5 +57,10 @@ export const useStyle = makeStyles((theme) => ({
     },
     question:{
       marginTop:'10px',
+    },
+    buttonBack: {
+        backgroundColor: '#2f49cf !important',
+        marginRight: '15px !important',
+        marginBottom:'15px !important',
     },
 }))

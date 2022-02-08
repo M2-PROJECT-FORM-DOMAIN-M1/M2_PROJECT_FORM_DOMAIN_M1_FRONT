@@ -21,6 +21,7 @@ import {useSpinner} from "../Context/spinnerContext";
 import Container from "@mui/material/Container"
 import EditForm from "../Form/EditAndQuestionForm/editAndQuestionForm";
 import {useSnackbar} from "notistack";
+import FormResult from "../FormResult/formResult";
 
 export default function DashboardSuperAdmin() {
     const user = useUser();
@@ -76,7 +77,6 @@ export default function DashboardSuperAdmin() {
             id: value.id
         }).then((res) => {
             if (res.status === 200) {
-                console.log(res.data)
                 setAdmin(res.data.user)
                 changeComponent(0)
             } else {
@@ -194,7 +194,9 @@ export default function DashboardSuperAdmin() {
             case 0:
                 return <DetailedInformationOnAdmin setIdForm={setIdForm} changeComponent={changeComponent} connectedAdmin={admin}/>
             case 1:
-                return <EditForm  isCreation={false} connectedAdmin={admin} idForm={idForm} />
+                return <EditForm setWhichComponent={setWhichComponent} isCreation={false} connectedAdmin={admin} idForm={idForm} />
+            case 2:
+                return <FormResult setWhichComponent={setWhichComponent} connectedAdmin={admin} idForm={idForm} />
             default:
                 return <div></div>
         }
