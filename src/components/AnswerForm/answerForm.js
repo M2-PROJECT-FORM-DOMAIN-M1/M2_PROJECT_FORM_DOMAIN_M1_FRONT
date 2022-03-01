@@ -24,18 +24,16 @@ export default function AnswerForm(props) {
     const [answerSaved, setAnswerSaved] = React.useState(null);
 
 
-
     const getAnswerIfAlreadyAnswered = () => {
         return axios.post('/public/answer/getAnswersSaved', {
             code: props.match.params.code,
-            email:isSignedIn.email,
-            token:isSignedIn.token
+            email: isSignedIn.email,
+            token: isSignedIn.token
         })
             .then(async function (response) {
-                if(response.data.answersList.length > 0){
+                if (response.data.answersList.length > 0) {
                     setAnswerSaved(response.data.answersList)
-                }
-                else{
+                } else {
                     setAnswerSaved(false)
                 }
 
@@ -85,7 +83,7 @@ export default function AnswerForm(props) {
         spinner.handleOpenSpinner()
 
 
-        if(isSignedIn != null){
+        if (isSignedIn != null) {
             Promise.all([getForm(), getAnswerIfAlreadyAnswered()]).then(() => {
                 spinner.handleCloseSpinner()
             })
@@ -96,10 +94,10 @@ export default function AnswerForm(props) {
 
     const getECTSCount = () => {
         let count = 0
-        if(  form !== null && isSignedIn !== null){
+        if (form !== null && isSignedIn !== null) {
 
-            form.questions.forEach((item,i)=>{
-                if(answer[i].answer !== undefined && answer[i].answer !== "" && answer[i].answer !== null){
+            form.questions.forEach((item, i) => {
+                if (answer[i].answer !== undefined && answer[i].answer !== "" && answer[i].answer !== null) {
                     count += item.ects
                 }
             })
@@ -109,8 +107,13 @@ export default function AnswerForm(props) {
 
     const sendAnswers = () => {
         spinner.handleOpenSpinner()
-        axios.post("/public/answer/sendAnswer", {answers: answer,email:isSignedIn.email,token:isSignedIn.token}).then(async (res) => {
-            if(res.status === 200){
+        axios.post("/public/answer/sendAnswer", {
+            code:props.match.params.code,
+            answers: answer,
+            email: isSignedIn.email,
+            token: isSignedIn.token
+        }).then(async (res) => {
+            if (res.status === 200) {
                 enqueueSnackbar("Answer send", {
                     anchorOrigin: {
                         vertical: 'top',
@@ -119,7 +122,7 @@ export default function AnswerForm(props) {
                     variant: 'success',
                 })
                 await getAnswerIfAlreadyAnswered()
-            }else{
+            } else {
                 enqueueSnackbar("An error occurred ", {
                     anchorOrigin: {
                         vertical: 'top',
@@ -146,7 +149,7 @@ export default function AnswerForm(props) {
     let countECTS = getECTSCount()
 
     const drawer = (
-        form !== null && isSignedIn !== null  &&
+        form !== null && isSignedIn !== null &&
         <div className={style.containerDrawer}>
             <DrawerHeaderStyled open={true}>
                 <Typography variant={'h5'} className={style.formName}>
@@ -154,7 +157,7 @@ export default function AnswerForm(props) {
                 </Typography>
             </DrawerHeaderStyled>
             {
-                answerSaved === false &&  <div className={style.containerStepper}>
+                answerSaved === false && <div className={style.containerStepper}>
                     {
                         form.questions.map((item, i) => {
                             return (
@@ -179,7 +182,8 @@ export default function AnswerForm(props) {
 
                                     </div>
                                     {
-                                        i + 1 !== form.questions.length && <div className={style.dividerStepperRow}></div>
+                                        i + 1 !== form.questions.length &&
+                                        <div className={style.dividerStepperRow}></div>
                                     }
 
                                 </div>
@@ -196,10 +200,11 @@ export default function AnswerForm(props) {
             <div className={style.containerBottom}>
                 <div className={style.ects}>
                     {
-                        countECTS > 0 &&   "Total ECTS : " + getECTSCount()
+                        countECTS > 0 && "Total ECTS : " + getECTSCount()
                     }
                 </div>
-                <Button variant={"contained"} className={style.buttonBackToMenu} onClick={()=>window.location.replace("/")}>
+                <Button variant={"contained"} className={style.buttonBackToMenu}
+                        onClick={() => window.location.replace("/")}>
                     Back to Main Page
                 </Button>
                 <Login className={style.login}/>
@@ -211,7 +216,7 @@ export default function AnswerForm(props) {
     return (
         <div className={style.root}>
             {
-                form === null || isSignedIn === null || answerSaved === null? <></>
+                form === null || isSignedIn === null || answerSaved === null ? <></>
                     :
                     isSignedIn === false ? window.location.replace("/loginOffice?code=" + props.match.params.code) :
                         <div className={style.containerAnswers}>
@@ -224,7 +229,8 @@ export default function AnswerForm(props) {
                             </DrawerStyled>
                             {form.questions.map((item, index) => (
                                     <div key={index} className={style.containerAnswer}>
-                                        <Answer answerSaved={answerSaved} answer={answer} index={index}  setAnswer={setAnswer} elem={item}/>
+                                        <Answer answerSaved={answerSaved} answer={answer} index={index}
+                                                setAnswer={setAnswer} elem={item}/>
                                     </div>
 
                                 )

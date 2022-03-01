@@ -17,6 +17,7 @@ import Question from "./Question/question";
 import EditedQuestion from "./EditedQuestion/editedQuestion";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import reorder from "../../Utils/reorder";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function EditAndQuestionForm(props) {
 
@@ -169,7 +170,13 @@ export default function EditAndQuestionForm(props) {
                 form !== null ?
 
                     <div className={clsx(openEditAnimationRunning && style.rootEditAnimationRunning)}>
+                        <Button startIcon={<ArrowBackIcon />} variant={"contained"} className={style.buttonBack} onClick={()=>{
+                            props.setWhichComponent(0)
+                        }}>
+                            Back
+                        </Button>
                         <div className={style.root}>
+
                             {
                                 <Paper className={style.globalInfoForm}>
                                     <div className={style.globalInfoFormTop}>

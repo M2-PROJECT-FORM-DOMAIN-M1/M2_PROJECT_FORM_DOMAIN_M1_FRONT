@@ -15,12 +15,13 @@ import axios from "axios";
 import {useSpinner} from "../../Context/spinnerContext";
 import {useDialog} from "../../Context/dialogContext";
 import DialogDeleteDetailedInformation from "./DialogDeleteDetailedInformation/dialogDeleteDetailedInformation";
+import {useSnackbar} from "notistack";
 
 export default function DetailedInformationOnAdmin(props) {
     const style = useStyle();
 
     const users = props.connectedAdmin
-
+    const {enqueueSnackbar} = useSnackbar();
     const dialog = useDialog();
     const spinner = useSpinner();
 
@@ -37,7 +38,13 @@ export default function DetailedInformationOnAdmin(props) {
                 throw new Error()
             }
         }).catch((error) => {
-
+            enqueueSnackbar("An error occurred ", {
+                anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'center',
+                },
+                variant: 'error',
+            })
         }).then(() => {
             spinner.handleCloseSpinner();
         })
@@ -112,7 +119,13 @@ export default function DetailedInformationOnAdmin(props) {
                         <div key={i} >
                             <Paper  className={style.rootForm}>
                                 <Button variant="contained" startIcon={<VisibilityIcon/>}
-                                        className={clsx(style.allFormsButtons, style.allFormsButtonCheck)}>
+                                        className={clsx(style.allFormsButtons, style.allFormsButtonCheck)}
+                                        onClick={()=> {
+                                            props.changeComponent(2)
+                                            props.setIdForm(object.id)
+                                        }}
+
+                                >
                                     Results
                                 </Button>
                                 <Button variant="contained" startIcon={<EditIcon/>}
