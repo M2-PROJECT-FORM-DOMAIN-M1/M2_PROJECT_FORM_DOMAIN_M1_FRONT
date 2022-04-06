@@ -22,6 +22,12 @@ import Container from "@mui/material/Container"
 import EditForm from "../Form/EditAndQuestionForm/editAndQuestionForm";
 import {useSnackbar} from "notistack";
 import FormResult from "../FormResult/formResult";
+import HomeSuperAdmin from "./HomeSuperAdmin/homeSuperAdmin";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DialogDeleteDetailedInformation
+    from "./DetailedInformationOnAdmin/DialogDeleteDetailedInformation/dialogDeleteDetailedInformation";
+import HomeIcon from '@mui/icons-material/Home';
+
 
 export default function DashboardSuperAdmin() {
     const user = useUser();
@@ -35,7 +41,7 @@ export default function DashboardSuperAdmin() {
     const [autoCompleteTextFieldValue, setAutoCompleteTextFieldValue] = React.useState("");
     const [loadingAutoComplete, setLoadingAutoComplete] = React.useState(false)
     const [open, setOpen] = React.useState(true);
-    const [whichComponent, setWhichComponent] = React.useState(1);
+    const [whichComponent, setWhichComponent] = React.useState(3);
     const [idForm, setIdForm] = React.useState(0);
 
     const [admin, setAdmin] = React.useState({})
@@ -160,6 +166,20 @@ export default function DashboardSuperAdmin() {
                     />
                 </div>
             </div>}
+            <div className={style.containerHome}>
+
+
+                {
+                    open ?
+                        <Button variant="contained" startIcon={<HomeIcon/>} className={style.homeButton}
+                                onClick={() =>   window.location.replace("/superAdmin") }>
+                            Home Page
+                        </Button>
+                        :
+                        <HomeIcon   onClick={() =>   window.location.replace("/superAdmin") }/>
+                }
+
+            </div>
             <div className={style.containerBottom}>
                 <Divider className={clsx(style.divider, style.dividerDisconnect)}/>
                 <div className={style.disconnect}>
@@ -197,6 +217,8 @@ export default function DashboardSuperAdmin() {
                 return <EditForm setWhichComponent={setWhichComponent} isCreation={false} connectedAdmin={admin} idForm={idForm} />
             case 2:
                 return <FormResult setWhichComponent={setWhichComponent} connectedAdmin={admin} idForm={idForm} />
+            case 3:
+                return <HomeSuperAdmin setAdmin={setAdmin} setWhichComponent={setWhichComponent} connectedAdmin={admin} />
             default:
                 return <div></div>
         }

@@ -70,7 +70,17 @@ export const useStyle = makeStyles((theme) => ({
         margin: 'auto',
         textAlign: 'center',
     },
+    containerHome:{
+        marginTop:'15px',
+      textAlign:'center',
+    },
     disconnectButton: {
+        cursor:'pointer',
+        padding: '5px',
+        fontWeight: 'bold',
+        backgroundColor: "#576CD9 !important",
+    },
+    homeButton:{
         cursor:'pointer',
         padding: '5px',
         fontWeight: 'bold',
