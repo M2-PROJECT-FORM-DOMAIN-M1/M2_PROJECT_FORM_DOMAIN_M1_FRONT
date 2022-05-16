@@ -12,6 +12,8 @@ export const useStyle = makeStyles((theme) => ({
     },
     allFormsContainer: {
         display:'flex',
+        justifyContent:'space-around',
+        flexWrap:'wrap',
         marginTop: '50px',
     },
     allFormsButtons: {
@@ -23,7 +25,7 @@ export const useStyle = makeStyles((theme) => ({
     allFormsButtonModify: {},
     allFormsButtonCheck: {},
     rootForm: {
-        marginRight:'25px !important',
+        marginTop:'15px',
         width: '250px',
         display: "flex",
         flexDirection: 'column',

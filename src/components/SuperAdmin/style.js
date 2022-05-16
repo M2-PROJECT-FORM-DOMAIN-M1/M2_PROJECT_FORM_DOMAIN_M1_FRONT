@@ -7,6 +7,7 @@ export const useStyle = makeStyles((theme) => ({
         minHeight: "100vh",
         backgroundColor: "rgba(87,108,217,0.13)",
     },
+
     drawer: {
         '& > div': {
             backgroundColor: "#2F49CF",

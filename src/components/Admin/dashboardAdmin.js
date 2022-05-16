@@ -21,6 +21,11 @@ import {DrawerStyled} from "../StyledComponents/drawerStyled";
 import {useSnackbar} from "notistack";
 import EditForm from "../Form/EditAndQuestionForm/editAndQuestionForm";
 import FormResult from "../FormResult/formResult";
+import HomeIcon from "@mui/icons-material/Home";
+import AddIcon from '@mui/icons-material/Add';
+import DialogAddQuestion from "../Form/EditAndQuestionForm/DialogAddQuestion/dialogAddQuestion";
+import {useDialog} from "../Context/dialogContext";
+import CreateFormPopUp from "../CreateFormPopUp/createFormPopUp";
 
 export default function DashboardAdmin(){
     const user = useUser();
@@ -33,6 +38,7 @@ export default function DashboardAdmin(){
     const [formsFiltered, setFormsFiltered] = React.useState(user.state.user.forms)
     const [idForm, setIdForm] = React.useState(0);
 
+    const dialog = useDialog();
 
     const [valueLockOpen,setValueLockOpen] = React.useState(true)
     const [valueLockClose,setValueLockClose] = React.useState(true)
@@ -55,14 +61,17 @@ export default function DashboardAdmin(){
         if(!value){
             value=""
         }
-     
+
         setInputValue(value)
         setFormsFiltered((elem)=>{
             let res = [...forms]
             res=filterPerLock(res,valueLockOpen,valueLockClose)
             return filterPerInput(res,value)
         })
+
+
     }
+
     const handleSelectFormInList = (formulaireSelected)=>{
         if (!formulaireSelected) {
             handleFilterAutoComplete("")
@@ -90,7 +99,7 @@ export default function DashboardAdmin(){
         res=res.filter((forms) => {
             return forms.name.includes(value)
     })
-  
+
 
     return res
     }
@@ -113,12 +122,12 @@ export default function DashboardAdmin(){
 
     const handleFilterForm =(e,whichComponent)=>{
         setFormsFiltered((elem)=>{
-            
+
             let res = [...forms]
-        
+
             let valueLockOpenTemp =valueLockOpen
             let valueLockCloseTemp = valueLockClose
-            
+
             if(whichComponent === "lockOpen"){
                 valueLockOpenTemp=e.target.checked
             }else{
@@ -129,8 +138,8 @@ export default function DashboardAdmin(){
 
             return filterPerInput(res,inputValue)
 
-          
-        
+
+
         })
     }
 
@@ -172,6 +181,19 @@ export default function DashboardAdmin(){
                     </div>
                 </div>
 
+                <div className={style.containerTop}>
+	                <Button variant="contained" startIcon={<AddIcon/>} className={style.createFormButton}
+                            onClick={() => dialog.handleOpenDialog({
+                                childrenDialog: <CreateFormPopUp setForms={setForms}
+
+                                                                 forms={user.state.user.forms}
+                                                                   dialog={dialog}/>,
+                                direction: "down"
+                            })}>
+		                Create Form
+	                </Button>
+                </div>
+
                 <div className={style.containerBottom}>
                     <Divider className={style.divider}/>
 
@@ -199,7 +221,7 @@ export default function DashboardAdmin(){
 
             </DrawerStyled>
             <Container maxWidth={"xl"}>
-                <div className={clsx( open ? style.containerOpen : style.containerClose)}>
+                <div className={clsx( open ? style.containerOpen : style.containerClose,style.container)}>
                     {renderSwitch()}
                 </div>
             </Container>
