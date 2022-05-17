@@ -17,6 +17,9 @@ export const useStyle = makeStyles((theme) => ({
         cursor: 'pointer',
         color: "#D11A2A",
     },
+    containerButton:{
+      textAlign:'right',
+    },
     root:{
         padding:'10px 25px',
     },
@@ -30,4 +33,8 @@ export const useStyle = makeStyles((theme) => ({
     containerOption:{
       marginTop:'5px',
     },
+    abstractID:{
+        fontSize:'10px !important',
+        color:'grey',
+    }
 }))

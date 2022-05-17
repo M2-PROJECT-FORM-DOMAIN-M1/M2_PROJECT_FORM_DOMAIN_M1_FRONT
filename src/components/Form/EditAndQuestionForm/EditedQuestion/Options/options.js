@@ -17,6 +17,14 @@ export default function Option(props){
         })
     }
 
+    const onChangeAbstractID= (e) => {
+        props.setQuestionEdited((elem)=>{
+            let res = JSON.parse(JSON.stringify(elem))
+            res.abstractID = e.target.value
+            return res
+        })
+    }
+
     return(
         <div className={style.root}>
             <Typography className={style.title} variant={"h6"}>
@@ -30,6 +38,15 @@ export default function Option(props){
                         ECTS :
                     </Typography>
                     <TextField type={"number"} value={props.questionEdited.ects} onChange={onChangeECTS}/>
+                </div>
+            </div>
+
+            <div className={style.containField}>
+                <div className={style.field}>
+                    <Typography className={style.fieldText}>
+                        Abstract ID :
+                    </Typography>
+                    <TextField type={"number"} value={props.questionEdited.abstractID} onChange={onChangeAbstractID}/>
                 </div>
             </div>
 

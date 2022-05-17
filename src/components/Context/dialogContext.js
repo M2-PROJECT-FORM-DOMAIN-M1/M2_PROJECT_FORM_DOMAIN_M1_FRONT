@@ -10,7 +10,7 @@ function useDialog(childrenDialog) {
 
     React.useEffect(() => {
         if (childrenDialog) {
-            console.log(context.handleOpenDialog(childrenDialog))
+            context.handleOpenDialog(childrenDialog)
         }
     }, [childrenDialog, context])
     if (context === undefined) {

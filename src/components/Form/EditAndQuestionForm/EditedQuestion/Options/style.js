@@ -9,12 +9,17 @@ export const useStyle = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
     },
-    fieldText:{
-       fontSize:'15px !important',
-        marginRight:'25px !important',
+    fieldText: {
+        width:"90px",
+        whiteSpace: "nowrap",
+        overflow:'hidden',
+        textOverflow: "ellipsis",
+        fontSize: '15px !important',
+        marginRight: '25px !important',
     },
-    containField:{
-      paddingLeft:'15px',
+    containField: {
+        marginTop: "15px",
+        paddingLeft: '15px',
     },
 
 }))

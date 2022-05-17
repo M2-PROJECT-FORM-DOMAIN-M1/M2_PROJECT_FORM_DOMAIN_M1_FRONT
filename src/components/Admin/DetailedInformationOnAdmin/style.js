@@ -68,5 +68,8 @@ export const useStyle = makeStyles((theme) => ({
     containerTop:{
       display:'flex',
     },
+    containerLock:{
+      cursor:"pointer",
+    },
 }))
 

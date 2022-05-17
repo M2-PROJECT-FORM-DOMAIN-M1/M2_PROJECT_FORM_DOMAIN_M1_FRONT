@@ -17,6 +17,7 @@ export default function EditedQuestion(props) {
             let resQuestionEdited = JSON.parse(JSON.stringify(props.questionEdited))
             res.questions[props.questionEditedIndex] = resQuestionEdited
             props.setOpenEdit(false);
+            console.log(res)
             return res
 
         })

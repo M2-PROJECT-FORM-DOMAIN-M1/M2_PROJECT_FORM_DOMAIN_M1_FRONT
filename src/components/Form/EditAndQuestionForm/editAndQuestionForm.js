@@ -42,7 +42,7 @@ export default function EditAndQuestionForm(props) {
 
     const handleSave = () => {
         spinner.handleOpenSpinner()
-        axios.post("/superAdmin/editAndAddFormToUsers", {
+        axios.post(props.url, {
             id: props.connectedAdmin.id,
             form: form,
         }).then(function (response) {

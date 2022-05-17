@@ -214,7 +214,7 @@ export default function DashboardSuperAdmin() {
             case 0:
                 return <DetailedInformationOnAdmin setIdForm={setIdForm} changeComponent={changeComponent} connectedAdmin={admin}/>
             case 1:
-                return <EditForm setWhichComponent={setWhichComponent} isCreation={false} connectedAdmin={admin} idForm={idForm} />
+                return <EditForm url={"/superAdmin/editAndAddFormToUsers"} setWhichComponent={setWhichComponent} isCreation={false} connectedAdmin={admin} idForm={idForm} />
             case 2:
                 return <FormResult setWhichComponent={setWhichComponent} connectedAdmin={admin} idForm={idForm} />
             case 3:

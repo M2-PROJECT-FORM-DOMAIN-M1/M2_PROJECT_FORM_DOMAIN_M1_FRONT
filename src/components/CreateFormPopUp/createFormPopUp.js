@@ -1,11 +1,7 @@
-import {FormControl, FormHelperText, Typography} from "@mui/material";
-import {Grid} from "@material-ui/core";
+import {FormControl, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
 import {useStyle} from "../Form/EditAndQuestionForm/DialogAddQuestion/style";
 import {useSnackbar} from "notistack";
 import axios from "axios";
@@ -34,7 +30,7 @@ export default function CreateFormPopUp(props) {
 
 		if (Object.keys(allError).length === 0) {
 
-			axios.post('/createForm', {
+			axios.post('/admin/createForm', {
 				name: form.name
 			})
 				.then(function (response) {

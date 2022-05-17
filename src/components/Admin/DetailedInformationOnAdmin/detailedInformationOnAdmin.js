@@ -25,7 +25,7 @@ export default function DetailedInformationOnAdmin(props) {
     const {enqueueSnackbar} = useSnackbar();
     const dialog = useDialog();
     const spinner = useSpinner();
-    console.log(props);
+
     const clickOnLockIcon = (lock, id) => {
         spinner.handleOpenSpinner();
         axios.post("/admin/lock", {
@@ -74,8 +74,8 @@ export default function DetailedInformationOnAdmin(props) {
                         </tr>
                         <tr>
                             <td>
-                                <Typography  className={style.infoUsersTitle}>
-                                   Email
+                                <Typography className={style.infoUsersTitle}>
+                                    Email
                                 </Typography>
                             </td>
                             <td className={style.containerInfoUsersContent}>
@@ -102,7 +102,7 @@ export default function DetailedInformationOnAdmin(props) {
                                     Number of Form
                                 </Typography>
                             </td>
-                            <td  className={style.containerInfoUsersContent}>
+                            <td className={style.containerInfoUsersContent}>
                                 <Typography className={style.infoUsersContent}>
                                     {users.forms.length}
                                 </Typography>
@@ -120,14 +120,14 @@ export default function DetailedInformationOnAdmin(props) {
                         <Paper key={i} className={style.rootForm}>
                             <Button variant="contained" startIcon={<VisibilityIcon/>}
                                     className={clsx(style.allFormsButtons, style.allFormsButtonCheck)}
-                                    onClick={()=> {
+                                    onClick={() => {
                                         props.setWhichComponent(2)
                                         props.setIdForm(object.id)
                                     }}>
                                 Results
                             </Button>
                             <Button variant="contained" startIcon={<EditIcon/>}
-                                    onClick={()=> {
+                                    onClick={() => {
                                         props.setWhichComponent(1)
                                         props.setIdForm(object.id)
                                     }}
@@ -145,15 +145,21 @@ export default function DetailedInformationOnAdmin(props) {
                                 Delete
                             </Button>
                             <Divider/>
-                            <div className={style.allFormsBottom} onClick={() => clickOnLockIcon(object.lock, object.id)}>
+                            <div className={style.allFormsBottom}
+                                 onClick={() => clickOnLockIcon(object.lock, object.id)}>
                                 <Typography variant="p" component="h2" className={style.allFormsNameForm}>
                                     {object.name}
                                 </Typography>
-                                {
-                                    object.lock ?
-                                        <LockIcon sx={{color: red[500]}}/> :
-                                        <LockOpenIcon sx={{color: green[500]}}/>
-                                }
+
+                                <div  className={style.containerLock}>
+                                    {
+                                        object.lock ?
+                                            <LockIcon sx={{color: red[500]}}/> :
+                                            <LockOpenIcon sx={{color: green[500]}}/>
+                                    }
+                                </div>
+
+
                             </div>
                         </Paper>
                     )

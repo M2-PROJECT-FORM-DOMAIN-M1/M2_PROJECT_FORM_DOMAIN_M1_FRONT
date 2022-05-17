@@ -17,6 +17,7 @@ export default function Question(props) {
     const elem = props.elem
     const dialog = useDialog();
 
+
     const getAnswerVue = (questionType, allPossibleAnswers) => {
 
         switch (questionType) {
@@ -48,16 +49,17 @@ export default function Question(props) {
                     </Typography>
                     <div className={style.containerOption}>
                         {
-                            elem.ects > 0 &&      <Typography className={style.ects} variant={"body1"}>
+                            elem.ects > 0 && <Typography className={style.ects} variant={"body1"}>
                                 {
-                                    "ECTS : " +  elem.ects
+                                    "ECTS : " + elem.ects
                                 }
                             </Typography>
                         }
                     </div>
 
                 </div>
-                <div>
+                <div className={style.containerButton}>
+
                     <EditIcon onClick={(e) => {
                         props.handleOpenEdit();
                         props.setQuestionEdited({...elem});
@@ -72,6 +74,13 @@ export default function Question(props) {
                             }
                         )
                     }} className={style.buttonDelete}/>
+                    {
+                        elem.abstractID > 0 && <Typography className={style.abstractID} variant={"body1"}>
+                            {
+                                "Abstract ID : " + elem.abstractID
+                            }
+                        </Typography>
+                    }
                 </div>
             </div>
             <Divider/>
