@@ -161,6 +161,11 @@ export default function DetailedInformationOnAdmin(props) {
 
 
                             </div>
+                            <div className={style.codeContainer}>
+                                <Typography className={style.allFormsCode}>
+                                    Code : <span className={style.allFormsCodeValue}> {object.code}</span>
+                                </Typography>
+                            </div>
                         </Paper>
                     )
                 })}

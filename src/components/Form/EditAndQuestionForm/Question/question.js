@@ -75,7 +75,7 @@ export default function Question(props) {
                         )
                     }} className={style.buttonDelete}/>
                     {
-                        elem.abstractID > 0 && <Typography className={style.abstractID} variant={"body1"}>
+                        elem.abstractID != null && <Typography className={style.abstractID} variant={"body1"}>
                             {
                                 "Abstract ID : " + elem.abstractID
                             }

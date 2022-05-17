@@ -36,6 +36,9 @@ export default function EditAndQuestionForm(props) {
     const [form, setForm] = React.useState(null)
     const [openEditAnimationRunning, setOpenEditAnimationRunning] = React.useState(false)
 
+    const [maxAbstractID,setMaxAbstractID] = React.useState(null);
+
+
     const handleOpenEdit = () => {
         setOpenEdit(!openEdit)
     }
@@ -54,7 +57,6 @@ export default function EditAndQuestionForm(props) {
             })
             response.data.data.questions = res
             setForm(response.data.data)
-
             enqueueSnackbar("Form saved", {
                 anchorOrigin: {
                     vertical: 'top',
@@ -114,6 +116,8 @@ export default function EditAndQuestionForm(props) {
                 })
                 response.data.data.questions = res
                 setForm(response.data.data)
+                setMaxAbstractID(Math.max(...response.data.data.questions.map(o => o.abstractID), 0)+1)
+
             })
             .catch(function (error) {
                 enqueueSnackbar("An error occured when fetching form by ID", {
@@ -234,6 +238,8 @@ export default function EditAndQuestionForm(props) {
                             <div className={style.bottom}>
                                 <IconButton onClick={() => dialog.handleOpenDialog({
                                     childrenDialog: <DialogAddQuestion setForm={setForm}
+                                                                       maxAbstractID={maxAbstractID}
+                                                                       setMaxAbstractID={setMaxAbstractID}
                                                                        allQuestionType={allQuestionType}
                                                                        dialog={dialog}/>,
                                     direction: "down"

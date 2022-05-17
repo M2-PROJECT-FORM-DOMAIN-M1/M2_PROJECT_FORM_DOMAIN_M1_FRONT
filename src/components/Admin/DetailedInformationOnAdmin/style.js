@@ -9,6 +9,16 @@ export const useStyle = makeStyles((theme) => ({
     root: {
         paddingLeft: '15px',
     },
+    codeContainer: {
+        padding: '0px 5px'
+    },
+    allFormsCode: {
+        fontSize: '20px !important',
+        fontFamily: "Montserrat !important",
+    },
+    allFormsCodeValue:{
+        fontWeight: "bold !important",
+    },
     allFormsContainer: {
         display:'flex',
         justifyContent:'space-around',

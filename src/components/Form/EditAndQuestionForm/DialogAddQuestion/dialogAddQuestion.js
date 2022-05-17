@@ -16,7 +16,10 @@ export default function DialogAddQuestion(props) {
     const [err, setErr] = React.useState({})
     const {enqueueSnackbar} = useSnackbar();
 
+
+
     const [currentTypeQuestion, setCurrentTypeQuestion] = React.useState(  props.allQuestionType[0]);
+
 
     const handleChangeCurrentTypeQuestion = (event) => {
         setCurrentTypeQuestion(event.target.value)
@@ -42,17 +45,24 @@ export default function DialogAddQuestion(props) {
                 let res = {...elem}
                 let tempQuestion = Array.from(res.questions)
 
+
+
                 tempQuestion.push({
+                    abstractID:props.maxAbstractID,
                     allPossibleAnswers: "",
                     question: form.question,
                     draggableId:res.questions.length.toString(),
                     questionType: currentTypeQuestion
                 })
+
                 res.questions = tempQuestion
                 return res
 
             })
 
+            props.setMaxAbstractID((elem)=>{
+                return elem+1
+            })
 
             enqueueSnackbar('Question added', {
                 anchorOrigin: {

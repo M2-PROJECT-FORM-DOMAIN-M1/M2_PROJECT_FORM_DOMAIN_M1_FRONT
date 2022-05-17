@@ -41,15 +41,6 @@ export default function Option(props){
                 </div>
             </div>
 
-            <div className={style.containField}>
-                <div className={style.field}>
-                    <Typography className={style.fieldText}>
-                        Abstract ID :
-                    </Typography>
-                    <TextField type={"number"} value={props.questionEdited.abstractID} onChange={onChangeAbstractID}/>
-                </div>
-            </div>
-
 
 
         </div>
