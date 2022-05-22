@@ -30,6 +30,8 @@ export default function EditAndQuestionForm(props) {
     const dialog = useDialog();
     const [openEdit, setOpenEdit] = React.useState(false)
     const [allQuestionType, setAllQuestionType] = React.useState([])
+    const [allRulesType, setAllRulesType] = React.useState([])
+
     const [questionEdited, setQuestionEdited] = React.useState({})
     const [questionEditedIndex, setQuestionEditedIndex] = React.useState()
 
@@ -103,6 +105,23 @@ export default function EditAndQuestionForm(props) {
 
     }
 
+    const getAllRulesType = () => {
+        return axios.get('/rulesType/getAll')
+            .then(function (response) {
+                setAllRulesType(response.data.rulesType)
+            })
+            .catch(function (error) {
+                enqueueSnackbar("An error occured when fetching all rules type", {
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'center',
+                    },
+                    variant: 'error',
+                })
+            })
+
+    }
+
     const getFormById = () => {
         return axios.post('/form/getFormById', {
             id: props.idForm
@@ -161,7 +180,7 @@ export default function EditAndQuestionForm(props) {
     React.useEffect(() => {
         spinner.handleOpenSpinner()
 
-        Promise.all([getAllQuestionType(), getFormById()]).then(() => {
+        Promise.all([getAllQuestionType(), getFormById(),getAllRulesType()]).then(() => {
             spinner.handleCloseSpinner()
         })
 // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -257,6 +276,7 @@ export default function EditAndQuestionForm(props) {
                             <div className={style.editRoot}>
                                 <EditedQuestion setForm={setForm} questionEditedIndex={questionEditedIndex}
                                                 setOpenEdit={setOpenEdit} openEdit={openEdit}
+                                                allRulesType={allRulesType}
                                                 setQuestionEdited={setQuestionEdited} questionEdited={questionEdited}/>
                             </div>
                         </Slide>

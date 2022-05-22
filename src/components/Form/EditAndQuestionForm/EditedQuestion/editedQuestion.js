@@ -17,7 +17,6 @@ export default function EditedQuestion(props) {
             let resQuestionEdited = JSON.parse(JSON.stringify(props.questionEdited))
             res.questions[props.questionEditedIndex] = resQuestionEdited
             props.setOpenEdit(false);
-            console.log(res)
             return res
 
         })
@@ -29,11 +28,11 @@ export default function EditedQuestion(props) {
 
         switch (questionType){
             case "CHECKBOX":
-                return <EditedQuestionCheckBox handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
+                return <EditedQuestionCheckBox allRulesType={props.allRulesType} handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
             case "RADIO":
-                return <EditedQuestionRadio handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
+                return <EditedQuestionRadio allRulesType={props.allRulesType} handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
             case "TEXTINPUT":
-                return <EditedQuestionTextInput  setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited} handleSaveEditedQuestion={handleSaveEditedQuestion} />
+                return <EditedQuestionTextInput allRulesType={props.allRulesType} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited} handleSaveEditedQuestion={handleSaveEditedQuestion} />
             default :
                 console.error("unkown question type")
                 return <div/>

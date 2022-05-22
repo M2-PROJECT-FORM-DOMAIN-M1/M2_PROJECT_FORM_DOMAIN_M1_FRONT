@@ -22,7 +22,7 @@ export default function LoginOffice(props) {
             code: query.get("code")
         })
             .then(function (response) {
-                if (!response.data.exist) {
+                if (!response.data.exist || response.data.lock) {
                     window.location.replace("/");
                 }else{
                     setFormExist(true)

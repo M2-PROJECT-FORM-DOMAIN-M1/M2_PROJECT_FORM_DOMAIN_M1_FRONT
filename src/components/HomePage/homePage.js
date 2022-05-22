@@ -34,7 +34,11 @@ export default function HomePage() {
         axios.post("/public/form/formExist", formProps)
             .then(function (response) {
                 if (response.data.exist) {
-                    window.location.replace("/loginOffice?code=" + formProps.code);
+                    if(response.data.lock){
+                        setFormCodeError("this form is actually locked")
+                    }else{
+                        window.location.replace("/loginOffice?code=" + formProps.code);
+                    }
                 } else {
                     setFormCodeError("the code does not exist")
                 }

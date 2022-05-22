@@ -35,8 +35,6 @@ export default function CreateFormPopUp(props) {
 			})
 				.then(function (response) {
 					props.forms.push(response.data.form)
-
-
 					props.dialog.handleCloseDialog()
 				})
 				.catch(function (error) {

@@ -40,9 +40,6 @@ export default function Option(props){
                     <TextField type={"number"} value={props.questionEdited.ects} onChange={onChangeECTS}/>
                 </div>
             </div>
-
-
-
         </div>
     )
 

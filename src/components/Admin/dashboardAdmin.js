@@ -197,7 +197,7 @@ export default function DashboardAdmin() {
                                     open ?
                                         <Button variant="contained" startIcon={<AddIcon/>} className={style.createFormButton}
                                                 onClick={() => dialog.handleOpenDialog({
-                                                    childrenDialog: <CreateFormPopUp setForms={setForms}
+                                                    childrenDialog: <CreateFormPopUp
 
                                                                                      forms={user.state.user.forms}
                                                                                      dialog={dialog}/>,
@@ -207,8 +207,7 @@ export default function DashboardAdmin() {
                                         </Button>
                                         :
                                         <AddIcon  onClick={() => dialog.handleOpenDialog({
-                                            childrenDialog: <CreateFormPopUp setForms={setForms}
-
+                                            childrenDialog: <CreateFormPopUp
                                                                              forms={user.state.user.forms}
                                                                              dialog={dialog}/>,
                                             direction: "down"

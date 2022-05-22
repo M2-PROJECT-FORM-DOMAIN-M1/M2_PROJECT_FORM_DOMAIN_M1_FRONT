@@ -13,6 +13,7 @@ import listToPossibleAnswer from "../../../../Utils/listToPossibleAnswer";
 import reorder from "../../../../Utils/reorder";
 import Radio from "@mui/material/Radio";
 import Option from "../Options/options";
+import EditedQuestionRules from "../EditedQuestionRules/editedQuestionRules";
 
 
 export default function EditedQuestionRadio(props) {
@@ -92,6 +93,7 @@ export default function EditedQuestionRadio(props) {
                 </Droppable>
             </DragDropContext>
             <Option questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
+            <EditedQuestionRules allRulesType={props.allRulesType} questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
             <Divider/>
             <div className={style.bottom}>
                 <IconButton onClick={() => dialog.handleOpenDialog({
