@@ -12,6 +12,7 @@ export default function TextInputAnswer(props){
         props.setAnswer((elem) => {
             let temp = [...elem]
             temp[props.index].answer=value
+            props.showWithRules(value)
             return temp
         })
     }

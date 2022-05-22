@@ -50,6 +50,10 @@ export default function AnswerForm(props) {
             })
     }
 
+    const canBeShownInit=(question) => {
+        return
+    }
+
     const getForm = () => {
         return axios.post('/public/form/getFormByCode', {
             code: props.match.params.code
@@ -58,6 +62,7 @@ export default function AnswerForm(props) {
 
                 let answer = [];
                 response.data.form.questions.forEach((elem) => {
+                    elem.show=!elem.rules;
                     answer.push({
                         answer: "",
                         question: elem.id
@@ -161,7 +166,7 @@ export default function AnswerForm(props) {
                     {
                         form.questions.map((item, i) => {
                             return (
-
+                                item.show &&
                                 <div key={i}>
                                     <div className={style.containerStepperRow}>
 
@@ -228,9 +233,10 @@ export default function AnswerForm(props) {
                                 {drawer}
                             </DrawerStyled>
                             {form.questions.map((item, index) => (
+                                item.show && !props.answerSaved &&
                                     <div key={index} className={style.containerAnswer}>
                                         <Answer answerSaved={answerSaved} answer={answer} index={index}
-                                                setAnswer={setAnswer} elem={item}/>
+                                                setAnswer={setAnswer} elem={item} questions={form.questions}/>
                                     </div>
 
                                 )

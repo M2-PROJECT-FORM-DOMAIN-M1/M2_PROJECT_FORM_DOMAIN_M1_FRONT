@@ -23,6 +23,8 @@ export default function CheckBoxAnswer(props) {
             temp[props.index].answer=res
             return temp
         })
+
+        props.showWithRules(res)
     }
 
 

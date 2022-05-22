@@ -12,14 +12,56 @@ export default function EditedQuestionRules(props) {
 
     const style = useStyle()
 
-    const [currentRuleValueSpecified, setCurrentRuleValueSpecified] = React.useState();
 
-    const handleRuleValueSpecified = (event) => {
-        setCurrentRuleValueSpecified(event.target.value)
+    let rules = props.questionEdited.rules
+
+
+    const getTypeRules = () =>{
+        if(rules){
+            return  props.allRulesType.find((elem) => elem.id === rules.rulesType .id )
+        }else{
+            return ''
+        }
     }
 
 
-    console.log(props)
+    const [currentTypeRules, setCurrentTypeRules] = React.useState(getTypeRules());
+    const [abstractID, setAbstractID] = React.useState(rules  ? rules.abstractID : null);
+    const [specifiedValue, setSpecifiedValue] = React.useState(rules  ? rules.specifiedValue : null);
+
+
+
+    const handleRuleValueSpecified = (event) => {
+        setCurrentTypeRules(event.target.value)
+
+
+        props.questionEdited.rules= {
+            abstractID:abstractID,
+            specifiedValue:specifiedValue,
+            rulesType:event.target.value
+        }
+
+    }
+
+    const handleChangeAbstractID = (e) => {
+        setAbstractID(e.target.value)
+
+        props.questionEdited.rules= {
+            abstractID:e.target.value,
+            specifiedValue:specifiedValue,
+            rulesType:currentTypeRules
+        }
+    }
+
+    const handleChangeSpecifiedValue = (e) => {
+        setSpecifiedValue(e.target.value)
+
+        props.questionEdited.rules= {
+            abstractID:abstractID,
+            specifiedValue:e.target.value,
+            rulesType:currentTypeRules
+        }
+    }
 
 
     return (
@@ -32,7 +74,7 @@ export default function EditedQuestionRules(props) {
                     <Typography variant={"body1"} className={style.abstractIDText}>
                         Show if abstract ID equal to :
                     </Typography>
-                    <TextField className={style.textFieldAbstractID}></TextField>
+                    <TextField value={abstractID} onChange={(e) => handleChangeAbstractID(e)} className={style.textFieldAbstractID} ></TextField>
                 </div>
                 <div className={style.containerAbstractIDAnd}>
                     <Typography variant={"body1"} className={style.abstractIDTextValue}>
@@ -43,7 +85,7 @@ export default function EditedQuestionRules(props) {
                         <Select
                             defaultValue=""
                             labelId="select-label"
-                            value={currentRuleValueSpecified}
+                            value={currentTypeRules}
                             label="Value"
                             onChange={handleRuleValueSpecified}
 
@@ -51,7 +93,7 @@ export default function EditedQuestionRules(props) {
                             {
                                 props.allRulesType.map(function (item){
                                 return (
-                                <MenuItem key={item.rulesTypeEnum} value={item.rulesTypeEnum}>{item.rulesTypeRenderText}</MenuItem>
+                                <MenuItem key={item.id} value={item}>{item.rulesTypeRenderText}</MenuItem>
 
                                 )})
                             }
@@ -59,12 +101,12 @@ export default function EditedQuestionRules(props) {
                     </FormControl>
                 </div>
                 {
-                    currentRuleValueSpecified === "oneValueSpecified" ?
+                    currentTypeRules  && currentTypeRules.rulesTypeEnum === "SPECIFIED_VALUE" ?
                         <div className={style.containerSpecifiedValue}>
                             <Typography variant={"body1"} className={style.abstractIDText}>
                                 Specified value :
                             </Typography>
-                            <TextField className={style.textFieldAbstractID}/>
+                            <TextField onChange={(e) => handleChangeSpecifiedValue(e)} value={specifiedValue} className={style.textFieldAbstractID}/>
                         </div>
                         :
                         ""

@@ -16,9 +16,13 @@ export default function RadioAnswer(props){
 
             if( temp[props.index].answer === value){
                 temp[props.index].answer=""
+                props.showWithRules("")
             }else{
                 temp[props.index].answer=value
+                props.showWithRules(value)
             }
+
+
 
             return temp
         })
