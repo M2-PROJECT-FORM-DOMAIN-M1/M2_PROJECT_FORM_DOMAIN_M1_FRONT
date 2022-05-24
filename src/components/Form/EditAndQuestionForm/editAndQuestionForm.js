@@ -18,6 +18,7 @@ import EditedQuestion from "./EditedQuestion/editedQuestion";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import reorder from "../../Utils/reorder";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DialogConfirmQuit from "./DialogConfirmQuit/dialogConfirmQuit";
 
 export default function EditAndQuestionForm(props) {
 
@@ -35,6 +36,7 @@ export default function EditAndQuestionForm(props) {
     const [questionEdited, setQuestionEdited] = React.useState({})
     const [questionEditedIndex, setQuestionEditedIndex] = React.useState()
 
+    const [initialForm, setInitialForm] = React.useState(null)
     const [form, setForm] = React.useState(null)
     const [openEditAnimationRunning, setOpenEditAnimationRunning] = React.useState(false)
 
@@ -42,7 +44,15 @@ export default function EditAndQuestionForm(props) {
 
 
     const handleOpenEdit = () => {
-        setOpenEdit(!openEdit)
+        if(openEdit){
+            setOpenEdit(false)
+            setTimeout(function () {
+                setOpenEdit(true)
+            }, animationDuration);
+        }
+        else{
+            setOpenEdit(true)
+        }
     }
 
     const handleSave = () => {
@@ -58,7 +68,10 @@ export default function EditAndQuestionForm(props) {
 
             })
             response.data.data.questions = res
+
             setForm(response.data.data)
+            setInitialForm(response.data.data)
+
             enqueueSnackbar("Form saved", {
                 anchorOrigin: {
                     vertical: 'top',
@@ -134,6 +147,8 @@ export default function EditAndQuestionForm(props) {
 
                 })
                 response.data.data.questions = res
+
+                setInitialForm(response.data.data)
                 setForm(response.data.data)
                 setMaxAbstractID(Math.max(...response.data.data.questions.map(o => o.abstractID), 0)+1)
 
@@ -186,6 +201,21 @@ export default function EditAndQuestionForm(props) {
 // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
+    const callBackDialogConfirmQuit= () =>{
+        props.setWhichComponent(0)
+    }
+
+    const clickOnBackElem = () =>{
+        if(JSON.stringify(initialForm) !== JSON.stringify(form)){
+            dialog.handleOpenDialog({
+                childrenDialog: <DialogConfirmQuit dialog={dialog}  callBack={callBackDialogConfirmQuit} />,
+                direction: "down"
+            })
+        }else{
+            callBackDialogConfirmQuit()
+        }
+
+    }
 
     return (
         <React.Fragment>
@@ -194,7 +224,7 @@ export default function EditAndQuestionForm(props) {
 
                     <div className={clsx(openEditAnimationRunning && style.rootEditAnimationRunning)}>
                         <Button startIcon={<ArrowBackIcon />} variant={"contained"} className={style.buttonBack} onClick={()=>{
-                            props.setWhichComponent(0)
+                            clickOnBackElem()
                         }}>
                             Back
                         </Button>
@@ -257,6 +287,9 @@ export default function EditAndQuestionForm(props) {
                             <div className={style.bottom}>
                                 <IconButton onClick={() => dialog.handleOpenDialog({
                                     childrenDialog: <DialogAddQuestion setForm={setForm}
+                                                                       setQuestionEditedIndex={setQuestionEditedIndex}
+                                                                       setQuestionEdited={setQuestionEdited}
+                                                                       handleOpenEdit={handleOpenEdit}
                                                                        maxAbstractID={maxAbstractID}
                                                                        setMaxAbstractID={setMaxAbstractID}
                                                                        allQuestionType={allQuestionType}

@@ -56,6 +56,10 @@ export default function DialogAddQuestion(props) {
                 })
 
                 res.questions = tempQuestion
+
+                props.setQuestionEdited({...tempQuestion[tempQuestion.length -1]});
+                props.setQuestionEditedIndex(tempQuestion.length-1)
+                props.handleOpenEdit();
                 return res
 
             })
@@ -71,6 +75,8 @@ export default function DialogAddQuestion(props) {
                 },
                 variant: 'success',
             })
+
+
             props.dialog.handleCloseDialog()
         } else {
             setErr(allError)

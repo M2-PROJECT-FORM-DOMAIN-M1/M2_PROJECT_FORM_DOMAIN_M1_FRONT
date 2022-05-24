@@ -21,10 +21,15 @@ import FormResult from "../FormResult/formResult";
 import AddIcon from '@mui/icons-material/Add';
 import {useDialog} from "../Context/dialogContext";
 import CreateFormPopUp from "../CreateFormPopUp/createFormPopUp";
+import UploadFileIcon from '@mui/icons-material/UploadFile';
+import axios from "axios";
+import {useSpinner} from "../Context/spinnerContext";
+
 
 export default function DashboardAdmin() {
     const user = useUser();
     const style = useStyle();
+    const spinner = useSpinner();
 
 
     const [open, setOpen] = React.useState(true);
@@ -40,7 +45,12 @@ export default function DashboardAdmin() {
     const [formulaireSelected, setformulaireSelected] = React.useState(null);
     const [inputValue, setInputValue] = React.useState('');
 
+    const inputFile = React.useRef(null)
+
     const [admin, setAdmin] = React.useState({})
+
+    const {enqueueSnackbar} = useSnackbar();
+
 
     const {closeSnackbar} = useSnackbar();
 
@@ -50,6 +60,46 @@ export default function DashboardAdmin() {
     const changeComponent = (id) => {
         closeSnackbar()
         setWhichComponent(id)
+    }
+
+    const savedFormOnline = () => {
+
+        inputFile.current.click();
+
+    }
+
+    const uploadFile = (e) => {
+        const fileList = e.target.files;
+
+        const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+            axios.post("/admin/importSaved", {
+                form: JSON.parse(event.target.result),
+            }).then(function (response) {
+                enqueueSnackbar("Form saved", {
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'center',
+                    },
+                    variant: 'success',
+                })
+
+                document.location.href = "/admin";
+
+            })
+                .catch(function (error) {
+                    enqueueSnackbar("An error occurred when saving form ", {
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'center',
+                        },
+                        variant: 'error',
+                    })
+                }).then(() => {
+                spinner.handleCloseSpinner()
+            })
+        });
+        reader.readAsText(fileList[0]);
     }
 
     const handleFilterAutoComplete = (value) => {
@@ -77,12 +127,14 @@ export default function DashboardAdmin() {
     }
 
     const renderSwitch = () => {
+        console.log(whichComponent)
         switch (whichComponent) {
             case 0:
                 return <DetailedInformationOnAdmin setIdForm={setIdForm} setWhichComponent={setWhichComponent}
                                                    connectedAdmin={user.state.user} forms={formsFiltered}/>
             case 1:
-                return <EditForm url={"/admin/editAndAddForm"} setWhichComponent={setWhichComponent} isCreation={false} connectedAdmin={admin}
+                return <EditForm url={"/admin/editAndAddForm"} setWhichComponent={setWhichComponent} isCreation={false}
+                                 connectedAdmin={admin}
                                  idForm={idForm}/>
             case 2:
                 return <FormResult setWhichComponent={setWhichComponent} connectedAdmin={admin} idForm={idForm}/>
@@ -137,8 +189,10 @@ export default function DashboardAdmin() {
         })
     }
 
+
     return (
         <Box>
+            <input onChange={(e) => uploadFile(e)} type='file' id='file' ref={inputFile} style={{display: 'none'}}/>
             <DrawerStyled variant="permanent" anchor="left" open={open}>
 
                 <DrawerHeaderStyled className={style.drawerHeader}>
@@ -152,7 +206,7 @@ export default function DashboardAdmin() {
                 <div className={style.options}>
 
                     {
-                        whichComponent ===  0 ? <>
+                        whichComponent === 0 ? <>
                             <Autocomplete getOptionLabel={(form) => form.name}
                                           disablePortal
                                           value={formulaireSelected}
@@ -195,28 +249,45 @@ export default function DashboardAdmin() {
 
                                 {
                                     open ?
-                                        <Button variant="contained" startIcon={<AddIcon/>} className={style.createFormButton}
+                                        <Button variant="contained" startIcon={<AddIcon/>}
+                                                className={style.createFormButton}
                                                 onClick={() => dialog.handleOpenDialog({
                                                     childrenDialog: <CreateFormPopUp
-
-                                                                                     forms={user.state.user.forms}
-                                                                                     dialog={dialog}/>,
+                                                        setWhichComponent={setWhichComponent}
+                                                        isCreation={false}
+                                                        setIdForm={setIdForm}
+                                                        forms={user.state.user.forms}
+                                                        dialog={dialog}/>,
                                                     direction: "down"
                                                 })}>
                                             Create Form
                                         </Button>
                                         :
-                                        <AddIcon  onClick={() => dialog.handleOpenDialog({
+                                        <AddIcon onClick={() => dialog.handleOpenDialog({
                                             childrenDialog: <CreateFormPopUp
-                                                                             forms={user.state.user.forms}
-                                                                             dialog={dialog}/>,
+                                                setWhichComponent={setWhichComponent}
+                                                isCreation={false}
+                                                setIdForm={setIdForm}
+                                                forms={user.state.user.forms}
+                                                dialog={dialog}/>,
                                             direction: "down"
                                         })}/>
                                 }
-
-
                             </div>
+                            <div className={style.containerTop}>
 
+                                {
+                                    open ?
+                                        <Button variant="contained" startIcon={<UploadFileIcon/>}
+                                                className={style.createFormButton}
+                                                type='file'
+                                                onClick={() => savedFormOnline()}>
+                                            Import Form
+                                        </Button>
+                                        :
+                                        <UploadFileIcon  onClick={() => savedFormOnline()}></UploadFileIcon>
+                                }
+                            </div>
                         </> : ""
                     }
 

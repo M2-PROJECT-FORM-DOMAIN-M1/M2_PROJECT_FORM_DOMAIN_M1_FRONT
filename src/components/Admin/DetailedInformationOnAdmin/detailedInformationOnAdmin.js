@@ -17,6 +17,9 @@ import {useDialog} from "../../Context/dialogContext";
 import axios from "axios";
 import {useSpinner} from "../../Context/spinnerContext";
 import {useSnackbar} from "notistack";
+import fileDownload from "js-file-download";
+import SaveIcon from '@mui/icons-material/Save';
+
 
 export default function DetailedInformationOnAdmin(props) {
     const style = useStyle();
@@ -26,6 +29,18 @@ export default function DetailedInformationOnAdmin(props) {
     const dialog = useDialog();
     const spinner = useSpinner();
 
+    const downloadForm = (form) => {
+        axios.post("/form/save", {
+            id: form.id,
+        }).then((res) => {
+            fileDownload(JSON.stringify(res.data), 'filename.json');
+        }).catch((error) => {
+            console.log(error)
+        })
+    }
+
+
+
     const clickOnLockIcon = (lock, id) => {
         spinner.handleOpenSpinner();
         axios.post("/admin/lock", {
@@ -33,9 +48,32 @@ export default function DetailedInformationOnAdmin(props) {
             id: id,
         }).then((res) => {
             if (res.status === 200) {
+
+                let text = "Form is now ";
+
+                if(!lock){
+                    text += "locked";
+                }else{
+                    text += "no longer locked";
+                }
+
+                enqueueSnackbar(text, {
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'center',
+                    },
+                    variant: 'success',
+                })
                 let form = users.forms.filter((elem) => elem.id === id)[0]
                 form.lock = !lock
             } else {
+                enqueueSnackbar('Error', {
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'center',
+                    },
+                    variant: 'error',
+                })
                 throw new Error()
             }
         }).catch((error) => {
@@ -134,6 +172,11 @@ export default function DetailedInformationOnAdmin(props) {
                                     className={clsx(style.allFormsButtons, style.allFormsButtonModify)}>
                                 Modification
                             </Button>
+                            <Button variant="contained" startIcon={<SaveIcon/>}
+                                    className={clsx(style.allFormsButtons, style.allFormsButtonSaved)}
+                                    onClick={() => downloadForm(object)}>
+                                Download
+                            </Button>
                             <Button variant="contained" startIcon={<DeleteIcon/>}
                                     className={clsx(style.allFormsButtons, style.allFormsButtonDelete)}
                                     onClick={() => dialog.handleOpenDialog({
@@ -144,6 +187,7 @@ export default function DetailedInformationOnAdmin(props) {
                                     })}>
                                 Delete
                             </Button>
+
                             <Divider/>
                             <div className={style.allFormsBottom}
                                  onClick={() => clickOnLockIcon(object.lock, object.id)}>

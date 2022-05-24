@@ -16,6 +16,8 @@ export default function CreateFormPopUp(props) {
 	const {enqueueSnackbar} = useSnackbar();
 	const spinner = useSpinner();
 
+	console.log(props)
+
 	const submit = (e) => {
 		e.preventDefault()
 		var formData = new FormData(e.target);
@@ -35,9 +37,12 @@ export default function CreateFormPopUp(props) {
 			})
 				.then(function (response) {
 					props.forms.push(response.data.form)
+					props.setIdForm(response.data.form.id)
+					props.setWhichComponent(1)
 					props.dialog.handleCloseDialog()
 				})
 				.catch(function (error) {
+					console.log(error)
 					enqueueSnackbar("An error occured when creating form", {
 						anchorOrigin: {
 							vertical: 'top',

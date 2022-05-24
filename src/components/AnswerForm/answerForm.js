@@ -172,7 +172,7 @@ export default function AnswerForm(props) {
 
                                         <Typography component={"p"}>
                                             {
-                                                i % 2 === 0 && item.questionType.questionTypeRenderText
+                                                i % 2 === 0 && "Question " + (i+1)
                                             }
                                         </Typography>
                                         <span>
@@ -181,7 +181,7 @@ export default function AnswerForm(props) {
                                     </span>
                                         <Typography component={"p"}>
                                             {
-                                                i % 2 === 1 && item.questionType.questionTypeRenderText
+                                                i % 2 === 1 &&  "Question " + (i+1)
                                             }
                                         </Typography>
 

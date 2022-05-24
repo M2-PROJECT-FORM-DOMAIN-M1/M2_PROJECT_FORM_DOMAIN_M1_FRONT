@@ -72,13 +72,13 @@ export default function EditedQuestionRules(props) {
             <div className={style.container}>
                 <div className={style.containerAbstractID}>
                     <Typography variant={"body1"} className={style.abstractIDText}>
-                        Show if abstract ID equal to :
+                       Linked Abstract ID :
                     </Typography>
                     <TextField value={abstractID} onChange={(e) => handleChangeAbstractID(e)} className={style.textFieldAbstractID} ></TextField>
                 </div>
                 <div className={style.containerAbstractIDAnd}>
                     <Typography variant={"body1"} className={style.abstractIDTextValue}>
-                        And if :
+                        Rules Type :
                     </Typography>
                     <FormControl className={style.selectAbstractIdValue}>
                         <InputLabel>Value</InputLabel>
