@@ -3,6 +3,7 @@ import ResultPerQuestionTable from "../ResultPerQuestionTable/resultPerQuestionT
 import {useStyle} from "../ResultPerQuestionCheckBox/style";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from "recharts";
 import {Tooltip} from "@material-ui/core";
+
 export default function ResultPerQuestionRadio(props){
 
 

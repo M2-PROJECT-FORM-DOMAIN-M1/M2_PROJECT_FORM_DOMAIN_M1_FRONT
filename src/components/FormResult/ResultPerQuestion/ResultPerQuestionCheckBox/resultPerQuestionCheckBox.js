@@ -1,6 +1,6 @@
 import React from 'react'
 import ResultPerQuestionTable from "../ResultPerQuestionTable/resultPerQuestionTable";
-import {Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis} from "recharts";
+import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from "recharts";
 import {Tooltip} from "@material-ui/core";
 import {useStyle} from "./style";
 

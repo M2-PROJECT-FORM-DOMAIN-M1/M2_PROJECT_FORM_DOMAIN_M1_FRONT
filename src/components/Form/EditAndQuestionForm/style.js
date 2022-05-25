@@ -4,6 +4,7 @@ export const useStyle = makeStyles((theme) => ({
     root: {
         margin: 'auto',
         maxWidth: '500px',
+        marginBottom:'25px',
     },
     globalInfoForm: {
         padding: '10px 20px',

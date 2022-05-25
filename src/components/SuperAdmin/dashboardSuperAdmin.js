@@ -23,9 +23,6 @@ import EditForm from "../Form/EditAndQuestionForm/editAndQuestionForm";
 import {useSnackbar} from "notistack";
 import FormResult from "../FormResult/formResult";
 import HomeSuperAdmin from "./HomeSuperAdmin/homeSuperAdmin";
-import DeleteIcon from "@mui/icons-material/Delete";
-import DialogDeleteDetailedInformation
-    from "./DetailedInformationOnAdmin/DialogDeleteDetailedInformation/dialogDeleteDetailedInformation";
 import HomeIcon from '@mui/icons-material/Home';
 
 

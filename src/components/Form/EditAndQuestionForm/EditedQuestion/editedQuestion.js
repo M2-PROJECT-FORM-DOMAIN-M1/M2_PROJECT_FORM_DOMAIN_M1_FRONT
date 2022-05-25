@@ -28,11 +28,11 @@ export default function EditedQuestion(props) {
 
         switch (questionType){
             case "CHECKBOX":
-                return <EditedQuestionCheckBox allRulesType={props.allRulesType} handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
+                return <EditedQuestionCheckBox form={props.form} allRulesType={props.allRulesType} handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
             case "RADIO":
-                return <EditedQuestionRadio allRulesType={props.allRulesType} handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
+                return <EditedQuestionRadio form={props.form} allRulesType={props.allRulesType} handleSaveEditedQuestion={handleSaveEditedQuestion} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited}/>
             case "TEXTINPUT":
-                return <EditedQuestionTextInput allRulesType={props.allRulesType} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited} handleSaveEditedQuestion={handleSaveEditedQuestion} />
+                return <EditedQuestionTextInput form={props.form} allRulesType={props.allRulesType} setQuestionEdited={props.setQuestionEdited} questionEdited={props.questionEdited} handleSaveEditedQuestion={handleSaveEditedQuestion} />
             default :
                 console.error("unkown question type")
                 return <div/>

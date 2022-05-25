@@ -1,6 +1,6 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import {TextField} from "@mui/material";
+import {Autocomplete, TextField} from "@mui/material";
 import {useStyle} from "./style";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,7 +11,6 @@ import FormControl from '@mui/material/FormControl';
 export default function EditedQuestionRules(props) {
 
     const style = useStyle()
-
 
     let rules = props.questionEdited.rules
 
@@ -29,6 +28,7 @@ export default function EditedQuestionRules(props) {
     const [abstractID, setAbstractID] = React.useState(rules  ? rules.abstractID : null);
     const [specifiedValue, setSpecifiedValue] = React.useState(rules  ? rules.specifiedValue : null);
 
+    console.log(rules)
 
 
     const handleRuleValueSpecified = (event) => {
@@ -43,11 +43,11 @@ export default function EditedQuestionRules(props) {
 
     }
 
-    const handleChangeAbstractID = (e) => {
-        setAbstractID(e.target.value)
+    const handleChangeAbstractID = (e,value) => {
+        setAbstractID(value.abstractID)
 
         props.questionEdited.rules= {
-            abstractID:e.target.value,
+            abstractID:value.abstractID,
             specifiedValue:specifiedValue,
             rulesType:currentTypeRules
         }
@@ -64,6 +64,7 @@ export default function EditedQuestionRules(props) {
     }
 
 
+
     return (
         <div className={style.root}>
             <Typography variant={"h6"}>
@@ -72,9 +73,20 @@ export default function EditedQuestionRules(props) {
             <div className={style.container}>
                 <div className={style.containerAbstractID}>
                     <Typography variant={"body1"} className={style.abstractIDText}>
-                       Linked Abstract ID :
+                       Question :
                     </Typography>
-                    <TextField value={abstractID} onChange={(e) => handleChangeAbstractID(e)} className={style.textFieldAbstractID} ></TextField>
+
+
+                    <Autocomplete
+                        isOptionEqualToValue={(question, value) => question.question === value.question}
+                        disablePortal
+                        defaultValue={props.form.questions.filter((elem) => elem.abstractID === abstractID)[0]}
+                        onChange={(e,value) => handleChangeAbstractID(e,value)}
+                        getOptionLabel={(question,item) =>question.question}
+                        options={props.form.questions.filter((elem) => elem.id !== props.questionEdited.id)}
+                        className={style.textFieldAbstractID}
+                        renderInput={(params) => <TextField {...params} label="Question" />}
+                        />
                 </div>
                 <div className={style.containerAbstractIDAnd}>
                     <Typography variant={"body1"} className={style.abstractIDTextValue}>

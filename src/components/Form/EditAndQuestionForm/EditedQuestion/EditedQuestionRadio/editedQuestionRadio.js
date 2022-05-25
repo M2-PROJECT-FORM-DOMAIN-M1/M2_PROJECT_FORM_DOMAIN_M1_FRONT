@@ -93,7 +93,7 @@ export default function EditedQuestionRadio(props) {
                 </Droppable>
             </DragDropContext>
             <Option questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
-            <EditedQuestionRules allRulesType={props.allRulesType} questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
+            <EditedQuestionRules form={props.form} allRulesType={props.allRulesType} questionEdited={props.questionEdited} setQuestionEdited={props.setQuestionEdited}/>
             <Divider/>
             <div className={style.bottom}>
                 <IconButton onClick={() => dialog.handleOpenDialog({

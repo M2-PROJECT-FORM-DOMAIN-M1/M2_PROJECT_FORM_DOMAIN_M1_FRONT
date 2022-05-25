@@ -1,13 +1,13 @@
 import React from 'react'
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TablePagination,
-    TableRow,
-    TableSortLabel
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TablePagination,
+	TableRow,
+	TableSortLabel
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import {useStyle} from "./style";

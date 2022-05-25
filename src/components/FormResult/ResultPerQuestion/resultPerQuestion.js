@@ -1,13 +1,12 @@
 import {useStyle} from "./style";
 import {Typography} from "@mui/material";
 import React from "react";
-import CheckBoxQuestion from "../../Form/EditAndQuestionForm/QuestionType/CheckBoxQuestion/checkBoxQuestion";
-import RadioQuestion from "../../Form/EditAndQuestionForm/QuestionType/RadioQuestion/radioQuestion";
 import ResultPerQuestionTextInput from "./ResultPerQuestionTextInput/resultPerQuestionTextInput";
 import Button from "@mui/material/Button";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ResultPerQuestionCheckBox from "./ResultPerQuestionCheckBox/resultPerQuestionCheckBox";
 import ResultPerQuestionRadio from "./ResultPerQuestionRadio/resultPerQuestionRadio";
+
 export default function ResultPerQuestion(props) {
 
     const style = useStyle()

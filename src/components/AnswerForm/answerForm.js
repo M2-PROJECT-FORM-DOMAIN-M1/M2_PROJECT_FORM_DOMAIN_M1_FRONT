@@ -172,7 +172,7 @@ export default function AnswerForm(props) {
 
                                         <Typography component={"p"}>
                                             {
-                                                i % 2 === 0 && "Question " + (i+1)
+                                                i % 2 === 0 && "Question " + (i+1-form.questions.filter((elem,index)=>!elem.show && index<i ).length)
                                             }
                                         </Typography>
                                         <span>
@@ -181,7 +181,7 @@ export default function AnswerForm(props) {
                                     </span>
                                         <Typography component={"p"}>
                                             {
-                                                i % 2 === 1 &&  "Question " + (i+1)
+                                                i % 2 === 1 &&  "Question " + (i+1-form.questions.filter((elem,index)=>!elem.show && index<i).length)
                                             }
                                         </Typography>
 
@@ -232,14 +232,18 @@ export default function AnswerForm(props) {
                             >
                                 {drawer}
                             </DrawerStyled>
-                            {form.questions.map((item, index) => (
-                                item.show && !props.answerSaved &&
-                                    <div key={index} className={style.containerAnswer}>
-                                        <Answer answerSaved={answerSaved} answer={answer} index={index}
-                                                setAnswer={setAnswer} elem={item} questions={form.questions}/>
-                                    </div>
-
+                            {form.questions.map((item, index) => {
+                                return (
+                                    (item.show && !props.answerSaved) &&
+                                        <div key={index} className={style.containerAnswer}>
+                                            <Answer answerSaved={answerSaved} answer={answer} showedIndex={index-form.questions.filter((elem,i)=>!elem.show && i<index ).length} index={index}
+                                                    setAnswer={setAnswer} elem={item} questions={form.questions}/>
+                                        </div>
                                 )
+                            }
+
+
+
                             )}
                             {
                                 !answerSaved && <>

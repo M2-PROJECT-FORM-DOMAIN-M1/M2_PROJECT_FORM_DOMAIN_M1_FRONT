@@ -308,6 +308,7 @@ export default function EditAndQuestionForm(props) {
                                in={openEdit} mountOnEnter unmountOnExit>
                             <div className={style.editRoot}>
                                 <EditedQuestion setForm={setForm} questionEditedIndex={questionEditedIndex}
+                                                form={form}
                                                 setOpenEdit={setOpenEdit} openEdit={openEdit}
                                                 allRulesType={allRulesType}
                                                 setQuestionEdited={setQuestionEdited} questionEdited={questionEdited}/>

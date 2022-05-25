@@ -145,7 +145,7 @@ export default function Answer(props) {
                     <div className={style.containerTextHeader}>
                         <Typography className={style.question} variant={"h6"}>
                             {
-                                props.index+1 + ". " + elem.question
+                                props.showedIndex+1 + ". " + elem.question
                             }
                         </Typography>
                     </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import {useStyle} from "./style";
-import {useSnackbar} from "notistack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
@@ -24,7 +23,7 @@ export default function DialogConfirmQuit(props){
     return(
         <div className={style.root}>
             <Typography variant={"h5"} component={"p"} className={style.title}>
-                You have unsaved changes <br/> are you sure you cant to quit this page ?
+                You have unsaved changes <br/> are you sure you want quit this page ?
             </Typography>
             <form className={style.containerForm} onSubmit={submit}>
                 <div className={style.containerButton}>

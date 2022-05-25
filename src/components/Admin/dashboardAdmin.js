@@ -127,7 +127,6 @@ export default function DashboardAdmin() {
     }
 
     const renderSwitch = () => {
-        console.log(whichComponent)
         switch (whichComponent) {
             case 0:
                 return <DetailedInformationOnAdmin setIdForm={setIdForm} setWhichComponent={setWhichComponent}
