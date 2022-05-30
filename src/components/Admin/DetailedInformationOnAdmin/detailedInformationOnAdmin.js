@@ -8,7 +8,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
-import {green, red} from "@material-ui/core/colors";
+import {green, red} from "@mui/material/colors";
 import moment from 'moment';
 import DeleteIcon from "@mui/icons-material/Delete";
 import DialogDeleteDetailedInformation

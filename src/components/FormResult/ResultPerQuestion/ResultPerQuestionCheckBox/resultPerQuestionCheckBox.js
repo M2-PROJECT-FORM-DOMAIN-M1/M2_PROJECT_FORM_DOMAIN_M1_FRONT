@@ -1,7 +1,7 @@
 import React from 'react'
 import ResultPerQuestionTable from "../ResultPerQuestionTable/resultPerQuestionTable";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from "recharts";
-import {Tooltip} from "@material-ui/core";
+import Tooltip from '@mui/material/Tooltip';
 import {useStyle} from "./style";
 
 

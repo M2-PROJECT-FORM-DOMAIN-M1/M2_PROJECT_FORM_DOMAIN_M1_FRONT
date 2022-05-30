@@ -2,7 +2,7 @@ import React from 'react';
 import {useStyle} from "./style";
 import {Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
-import {Grid} from "@material-ui/core";
+import Grid from '@mui/material/Grid';
 import Button from "@mui/material/Button";
 import axios from "axios";
 import {useUser} from "../../Context/userContact";

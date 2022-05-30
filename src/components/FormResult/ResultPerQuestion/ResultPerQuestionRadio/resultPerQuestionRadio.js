@@ -2,7 +2,7 @@ import React from 'react'
 import ResultPerQuestionTable from "../ResultPerQuestionTable/resultPerQuestionTable";
 import {useStyle} from "../ResultPerQuestionCheckBox/style";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis} from "recharts";
-import {Tooltip} from "@material-ui/core";
+import Tooltip from '@mui/material/Tooltip';
 
 export default function ResultPerQuestionRadio(props){
 

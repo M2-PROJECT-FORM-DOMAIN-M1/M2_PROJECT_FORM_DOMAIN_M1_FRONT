@@ -3,7 +3,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import {useStyle} from "./style";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
-import {Typography} from "@material-ui/core";
+import {Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import Slide from '@mui/material/Slide';
 import IconButton from "@mui/material/IconButton";
