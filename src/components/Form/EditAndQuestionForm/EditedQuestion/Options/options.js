@@ -1,13 +1,14 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import {useStyle} from "./style";
-import {TextField} from "@mui/material";
+import {TextField,Checkbox} from "@mui/material";
 
 
 export default function Option(props){
 
     const style = useStyle()
 
+    console.log(props.questionEdited.required)
 
     const onChangeECTS = (e) => {
         props.setQuestionEdited((elem)=>{
@@ -17,10 +18,10 @@ export default function Option(props){
         })
     }
 
-    const onChangeAbstractID= (e) => {
+    const onChangeRequired = (e) => {
         props.setQuestionEdited((elem)=>{
             let res = JSON.parse(JSON.stringify(elem))
-            res.abstractID = e.target.value
+            res.required = e.target.checked
             return res
         })
     }
@@ -38,6 +39,15 @@ export default function Option(props){
                         ECTS :
                     </Typography>
                     <TextField type={"number"} value={props.questionEdited.ects} onChange={onChangeECTS}/>
+                </div>
+            </div>
+            <div className={style.containField}>
+                {/*ECTS*/}
+                <div className={style.field}>
+                    <Typography className={style.fieldText}>
+                        Required :
+                    </Typography>
+                    <Checkbox checked={props.questionEdited.required} onChange={onChangeRequired} />
                 </div>
             </div>
         </div>

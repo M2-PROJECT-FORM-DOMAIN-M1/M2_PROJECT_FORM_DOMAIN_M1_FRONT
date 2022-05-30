@@ -8,6 +8,7 @@ import TextInputAnswer from "../TextInputAnswer/textInputAnswer";
 import CheckBoxAnswerAlreadyAnswer from "../CheckBoxAnswer/checkBoxAnswerAlreadyAnswer";
 import RadioAnswerAlreadyAnswer from "../RadioAnswer/radioAnswerAlreadyAnswer";
 import TextInputAnswerAlreadyAnswer from "../TextInputAnswer/textInputAnswerAlreadyAnswer";
+import clsx from "clsx";
 
 
 export default function Answer(props) {
@@ -138,9 +139,10 @@ export default function Answer(props) {
 
     }
 
+
     return (
         <div>
-            <Paper className={style.root}>
+            <Paper  className={clsx(style.root,elem.requiredAndNotAnswer && style.required)}>
                 <div className={style.header}>
                     <div className={style.containerTextHeader}>
                         <Typography className={style.question} variant={"h6"}>

@@ -16,4 +16,7 @@ export const useStyle = makeStyles((theme) => ({
         fontSize: '15px !important',
         color: "grey"
     },
+    required:{
+        border:"solid red 2px",
+    },
 }))

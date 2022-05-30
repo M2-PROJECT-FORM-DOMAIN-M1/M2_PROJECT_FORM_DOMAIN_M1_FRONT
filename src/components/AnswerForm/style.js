@@ -15,6 +15,7 @@ export const useStyle = makeStyles((theme) => ({
         margin: 'auto',
         maxWidth: '500px',
     },
+
     drawer: {
         '& > div': {
             alignItems: 'center !important',

@@ -11,10 +11,11 @@ import {useStyle} from "./style";
 export default function LoginOffice(props) {
 
     const spinner = useSpinner();
-    const [isSignedIn] = useIsSignedIn();
+    const [isSignedIn] = [true];
     const [formExist,setFormExist] =React.useState(false)
     let query = useQuery();
     const style = useStyle()
+
 
     React.useEffect(()=>{
         spinner.handleOpenSpinner()

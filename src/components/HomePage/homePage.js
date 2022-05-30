@@ -52,7 +52,7 @@ export default function HomePage() {
 
     return (
         <div className={style.root}>
-            <Typography variant="h3" component="h1" className={style.title}>ISEN FORM</Typography>
+            <Typography variant="h3" component="h1" className={style.title}>ISEN FORMS</Typography>
 
             <div className={style.connectionTitle} onClick={showPopUpConnection}>
                 <PersonIcon fontSize="medium" className={style.iconPerson}/>

@@ -23,7 +23,6 @@ export default function AnswerForm(props) {
     const [answer, setAnswer] = React.useState([]);
     const [answerSaved, setAnswerSaved] = React.useState(null);
 
-
     const getAnswerIfAlreadyAnswered = () => {
         return axios.post('/public/answer/getAnswersSaved', {
             code: props.match.params.code,
@@ -50,9 +49,6 @@ export default function AnswerForm(props) {
             })
     }
 
-    const canBeShownInit=(question) => {
-        return
-    }
 
     const getForm = () => {
         return axios.post('/public/form/getFormByCode', {
@@ -110,24 +106,60 @@ export default function AnswerForm(props) {
         return count
     }
 
+    const checkIfAllRequiredQuestionAnswer = () =>{
+       let allQuestions =  form.questions.filter((elem,index)=>elem.show)
+
+        let questionRequiredAndNotAnswered = true
+
+        allQuestions.forEach((elem,i) => {
+            if(elem.required){
+                if( (answer[i].answer === undefined || answer[i].answer === "" || answer[i].answer === null) ){
+                    questionRequiredAndNotAnswered =false;
+                    elem.requiredAndNotAnswer = true;
+                }else{
+                    elem.requiredAndNotAnswer = false;
+                }
+            }
+        })
+
+        setForm((elem)=>{
+            let res = {...elem}
+            res.question=allQuestions;
+            return res
+        })
+
+        return questionRequiredAndNotAnswered
+    }
     const sendAnswers = () => {
-        spinner.handleOpenSpinner()
-        axios.post("/public/answer/sendAnswer", {
-            code:props.match.params.code,
-            answers: answer,
-            email: isSignedIn.email,
-            token: isSignedIn.token
-        }).then(async (res) => {
-            if (res.status === 200) {
-                enqueueSnackbar("Answer send", {
-                    anchorOrigin: {
-                        vertical: 'top',
-                        horizontal: 'center',
-                    },
-                    variant: 'success',
-                })
-                await getAnswerIfAlreadyAnswered()
-            } else {
+
+        if(checkIfAllRequiredQuestionAnswer()){
+            spinner.handleOpenSpinner()
+            axios.post("/public/answer/sendAnswer", {
+                code:props.match.params.code,
+                answers: answer,
+                email: isSignedIn.email,
+                token: isSignedIn.token
+            }).then(async (res) => {
+                if (res.status === 200) {
+                    enqueueSnackbar("Answer send", {
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'center',
+                        },
+                        variant: 'success',
+                    })
+                    await getAnswerIfAlreadyAnswered()
+                } else {
+                    enqueueSnackbar("An error occurred ", {
+                        anchorOrigin: {
+                            vertical: 'top',
+                            horizontal: 'center',
+                        },
+                        variant: 'error',
+                    })
+                }
+
+            }).catch((reason => {
                 enqueueSnackbar("An error occurred ", {
                     anchorOrigin: {
                         vertical: 'top',
@@ -135,19 +167,12 @@ export default function AnswerForm(props) {
                     },
                     variant: 'error',
                 })
-            }
+            })).then((value => {
+                spinner.handleCloseSpinner()
+            }))
+        }
 
-        }).catch((reason => {
-            enqueueSnackbar("An error occurred ", {
-                anchorOrigin: {
-                    vertical: 'top',
-                    horizontal: 'center',
-                },
-                variant: 'error',
-            })
-        })).then((value => {
-            spinner.handleCloseSpinner()
-        }))
+
 
     }
 
@@ -174,6 +199,9 @@ export default function AnswerForm(props) {
                                             {
                                                 i % 2 === 0 && "Question " + (i+1-form.questions.filter((elem,index)=>!elem.show && index<i ).length)
                                             }
+                                            {
+                                                i % 2 === 0 && item.required && " *"
+                                            }
                                         </Typography>
                                         <span>
                                         <Brightness1Icon
@@ -182,6 +210,9 @@ export default function AnswerForm(props) {
                                         <Typography component={"p"}>
                                             {
                                                 i % 2 === 1 &&  "Question " + (i+1-form.questions.filter((elem,index)=>!elem.show && index<i).length)
+                                            }
+                                            {
+                                                i % 2 === 1 && item.required && " *"
                                             }
                                         </Typography>
 
